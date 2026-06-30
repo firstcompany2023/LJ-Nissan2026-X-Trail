@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>2026 GSAP TEST</title>
+    <meta name="description" content="test">
+    <link rel="icon" href="./assets/img/favicon/favicon.ico" sizes="any">
+    <link rel="shortcut icon" href="./assets/img/favicon/favicon.ico" type="image/x-icon">
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="2026 GSAP TEST" />
+    <meta property="og:description" content="test" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image" content="./assets/img/favicon/fb.jpg" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" href="./assets/img/icon/logo.svg">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="./assets/css/main.css" />
+    <script src="./assets/js/tailwindcss.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                screens: {
+                    'sm': '640px',
+                    'md': '768px',
+                    'lg': '1024px',
+                    'xl': '1440px',
+                    '2xl': '1536px',
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="./assets/css/lenis.css">
+</head>
+
+<body>
+
+    <!-- content here -->
+    <style>
+        html, body {
+            width: 100%;
+            height: auto !important;
+            overflow-x: hidden !important;
+            overflow-y: auto !important;
+        }
+
+        #web-header {
+            display: flex;
+        }
+        #mobile-header {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+        #web-logo {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        #web-menu {
+            opacity: 0;
+            transform: translateX(50px);
+            gap: 0px;
+        }
+        #mobile-menu {
+            opacity: 0;
+            pointer-events: none;
+        }
+        #mobile-logo {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .mobile-menu-link {
+            cursor: pointer;
+        }
+
+        #kv-section .kv-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: auto;
+            max-width: max-content;
+        }
+        #kv-section .kv-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2;
+        }
+        #kv-section .kv-content {
+            position: absolute;
+            top: 30%;
+            left: 30%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 2.5rem;
+            z-index: 3;
+            letter-spacing: 24px;
+            font-weight: 100;
+            opacity: 0;
+        }
+        #kv-section .kv-title {
+            position: absolute;
+            z-index: 3;
+            text-align: center;
+        }
+
+        #usp-section-web .usp-bg-img .usp-title  {
+            width: 300px;
+            font-weight: 100;
+            letter-spacing: 0.2rem;
+        }
+        #usp-section-web .usp-bg-img.usp-layer-1 .usp-title {
+            top: 30%;
+            right: 20%;
+        }
+        #usp-section-web .usp-bg-img.usp-layer-2 .usp-title {
+            top: 50%;
+            right: 20%;
+        }
+        #usp-section-web .usp-bg-img.usp-layer-3 .usp-title {
+            top: 40%;
+            right: 20%;
+        }
+        #usp-section-web .usp-text-layer {
+            width: max-content;
+            min-width: 100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+        }
+        #usp-section-web .usp-text-layer > div {
+            flex-shrink: 0;
+        }
+        #usp-section-web .usp-text-layer .usp-content-title,
+        #usp-section-mob .usp-text-layer .usp-content-title {
+            -webkit-background-clip: text !important;
+            background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            color: transparent !important;
+        }
+        #usp-section-web .usp-text-layer.usp-layer-1 .usp-content-title,
+        #usp-section-mob .usp-text-layer.usp-layer-1 .usp-content-title {
+            background: linear-gradient(90deg, #294046 0%, #57646A 100%);
+        }
+        #usp-section-web .usp-text-layer.usp-layer-2 .usp-content-title,
+        #usp-section-mob .usp-text-layer.usp-layer-2 .usp-content-title {
+            background: linear-gradient(90deg, #453B31 0%, #74695C 100%);
+        }
+        #usp-section-web .usp-text-layer.usp-layer-3 .usp-content-title,
+        #usp-section-mob .usp-text-layer.usp-layer-3 .usp-content-title {
+            background: linear-gradient(90deg, #444830 0%, #615A40 100%);
+        }
+        #usp-section-mob .usp-mob-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s linear;
+        }
+
+        #price-section .footer {
+            height: 142px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0px 20px;
+            color: #4C4C4C;
+        }
+
+        #side-btn {
+            opacity: 0;
+        }
+
+        /* 橫屏裝置 (電腦 >= 1440px) */
+        @media (min-width: 1440px) {
+
+        }
+
+        /* 行動裝置 (手機 <= 767px 與 平板 768px~1439px 直屏)：USP 區塊為正常垂直堆疊流 */
+        @media (max-width: 767px), (min-width: 768px) and (max-width: 1439px) and (orientation: portrait) {
+            #web-header {
+                display: none !important;
+            }
+            #mobile-header {
+                display: flex !important;
+            }
+            #mobile-menu {
+                opacity: 1;
+                pointer-events: auto;
+            }
+            #mobile-logo {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            #kv-section .kv-title {
+                scale: 0.5;
+            }
+            #kv-section .kv-content {   
+                letter-spacing: 12px;
+                width: 100%;
+                left: 50%;
+                text-align: center;
+            }
+
+            #intro-section #intro-content{
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: start;
+                justify-content: start;
+            }
+        }
+
+        /* 橫屏裝置 (平板 768px~1439px 橫屏) */
+        @media (min-width: 768px) and (max-width: 1439px) and (orientation: landscape) and (min-height: 500px) {
+            #usp-section-mob .usp-mob-layer-title{
+                position: relative;
+                top: -40px;
+                width: 100%;
+                max-width: 100%;
+                padding-left: 10rem;
+                padding-right: 10rem;
+            }
+            #usp-section-mob .usp-mob-layer-subtitle{
+                width: 100%;
+                max-width: 100%;
+                padding-left: 10rem;
+                padding-right: 10rem;
+            }
+
+            #usp-section-mob .usp-mob-content{
+                flex-direction: row;
+                gap: 3rem;
+            }
+            #usp-section-mob .usp-mob-details{
+                display: flex;
+                max-height: unset !important;
+                background: transparent;
+            }
+            #usp-section-mob .usp-mob-details .p-5{
+                padding: 0!important;
+            }
+            #usp-section-mob .usp-mob-toggle {
+                display: none;
+            }
+        }
+        /* 直屏裝置 (平板 768px~1439px 直屏) */
+        @media (min-width: 768px) and (max-width: 1439px) and (orientation: portrait) {
+            #intro-section #intro-content{
+                padding-left: 100px;
+            }
+
+            #usp-section-mob .usp-mob-layer-title{
+                position: relative;
+                top: -40px;
+                width: 100%;
+                max-width: 100%;
+                padding-left: 6rem;
+                padding-right: 6rem;
+            }
+            #usp-section-mob .usp-mob-layer-subtitle{
+                width: 100%;
+                max-width: 100%;
+                padding-left: 6rem;
+                padding-right: 6rem;
+            }
+
+            #usp-section-mob .usp-mob-content{
+                flex-direction: row;
+                gap: 3rem;
+            }
+            #usp-section-mob .usp-mob-details{
+                display: flex;
+                max-height: unset !important;
+                background: transparent;
+            }
+            #usp-section-mob .usp-mob-details .p-5{
+                padding: 0!important;
+            }
+            #usp-section-mob .usp-mob-toggle {
+                display: none;
+            }
+        }
+
+        /* 手機橫屏裝置 */
+        @media (max-width: 960px) and (orientation: landscape) and (max-height: 500px){
+            #web-header {
+                display: none !important;
+            }
+            #mobile-header {
+                display: flex !important;
+            }
+            #mobile-menu {
+                opacity: 1;
+                pointer-events: auto;
+            }
+            #mobile-logo {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            #kv-section .kv-title {
+                scale: 0.75;
+            }
+            #kv-section .kv-content {   
+                letter-spacing: 12px;
+                width: 100%;
+                left: 50%;
+                text-align: center;
+            }
+
+            #intro-section{
+                height: auto;
+            }
+
+            #price-section{
+                display: block;
+                height: auto;
+            }
+
+            #price-section .price-content {
+                position: relative;
+                z-index: 2;
+            }
+            #usp-section-mob .usp-mob-layer-title{
+                position: relative;
+                top: -40px;
+            }
+        }
+        /* 手機直屏裝置 */
+        @media (max-width: 767px) {
+            #kv-section .kv-title {
+                scale: 0.5;
+            }
+            #kv-section .kv-content {   
+                font-size: 1.5rem;
+                letter-spacing: 12px;
+                width: 100%;
+                left: 50%;
+                text-align: center;
+            }
+            #intro-section #intro-content{
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: start;
+                justify-content: start;
+                padding-left: 30px;
+            }
+            #usp-section-mob .usp-mob-layer-title{
+                position: relative;
+                top: -20px;
+            }
+        }
+
+        @media (max-width: 668px) {
+
+            #intro-section{
+                height: auto;
+            }
+
+            #price-section{
+                height: auto;
+            }
+        }
+    </style>
+
+    <header class="fixed top-0 left-0 w-full z-[100] bg-transparent transition-all duration-300">
+        <div id="web-header" class="relative mx-auto flex flex-row items-center justify-between px-12 py-6 gap-x-0">
+            <div id="web-logo" class="hidden md:block">                
+                <a href="#" class="w-[72px] block transition-transform duration-300 hover:scale-105">
+                    <img src="./assets/img/icon/logo.svg" alt="NISSAN LOGO" class="w-[72px] h-auto object-contain brightness-0 invert">
+                </a>
+            </div>
+            <nav id="web-menu" class="hidden md:flex items-center gap-x-16 md:order-2">
+                <a href="#intro-section" class="text-base font-normal transition-colors duration-300 hover:brightness-125" style="color: #BEA894;">何謂「粋」</a>
+                <a href="#usp-section-web-1" class="text-base font-normal transition-colors duration-300 hover:brightness-125" style="color: #BEA894;">粋の智驅</a>
+                <a href="#usp-section-web-2" class="text-base font-normal transition-colors duration-300 hover:brightness-125" style="color: #BEA894;">粋の信賴</a>
+                <a href="#usp-section-web-3" class="text-base font-normal transition-colors duration-300 hover:brightness-125" style="color: #BEA894;">粋の心技</a>
+                <a href="#price-section" class="text-base font-normal transition-colors duration-300 hover:brightness-125" style="color: #BEA894;">親身感受「粋」</a>
+            </nav>
+        </div>
+        <div id="mobile-header" class="relative mx-auto flex flex-row items-center justify-start px-6 py-6 gap-x-4">
+            <button id="mobile-menu" type="button" class="flex items-center justify-center w-10 h-10 rounded-full border border-white/50 bg-black/80 transition-all duration-300 focus:outline-none" aria-label="Toggle Menu">
+                <img src="./assets/img/icon/menu-burger.svg" class="w-4 h-4 brightness-0 invert" alt="menu icon">
+            </button>
+            <div id="mobile-logo" class="block transition-transform duration-300 hover:scale-105">
+                <span class="text-nissan text-[22px] font-light text-white tracking-[4px] leading-none uppercase">NISSAN</span>
+            </div>
+
+            <div id="mobile-dropdown-menu" class="hidden absolute top-full left-6 bg-[#0A0A0A]/85 z-[150] px-6 py-8">
+                <nav class="flex flex-col gap-y-6">
+                    <a href="#intro-section" class="mobile-menu-link text-base font-normal transition-colors duration-300 block hover:brightness-125" style="color: #BEA894;">何謂「粋」</a>
+                    <a href="#usp-section-mob-1" data-usp-target="1" class="mobile-menu-link text-base font-normal transition-colors duration-300 block hover:brightness-125" style="color: #BEA894;">粋の智驅</a>
+                    <a href="#usp-section-mob-2" data-usp-target="2" class="mobile-menu-link text-base font-normal transition-colors duration-300 block hover:brightness-125" style="color: #BEA894;">粋の信賴</a>
+                    <a href="#usp-section-mob-3" data-usp-target="3" class="mobile-menu-link text-base font-normal transition-colors duration-300 block hover:brightness-125" style="color: #BEA894;">粋の心技</a>
+                    <a href="#price-section" class="mobile-menu-link text-base font-normal transition-colors duration-300 block hover:brightness-125" style="color: #BEA894;">親身感受「粋」</a>
+                </nav>
+            </div>
+        </div>
+
+
+    </header>
+
+    <div id="kv-trigger" class="relative w-full">
+        <section id="kv-section" class="fixed top-0 left-0 w-full h-screen overflow-hidden bg-black flex items-center justify-center z-1">
+            <img class="kv-bg-image" src="./assets/img/banner/banner_d.jpg" alt="KV Banner Image">
+            <div class="kv-overlay"></div>
+            <div class="kv-title">
+                <img src="./assets/img/banner/title.svg" alt="title" class=" h-auto">
+            </div>
+            <div class="kv-content ">所有講究，只為純粋</div>
+        </section>
+    </div>
+
+    <section id="intro-section" class="relative z-10 w-full bg-black flex items-center justify-center h-screen md:h-auto">
+        <div id="intro-content" class="flex flex-row items-center justify-center gap-16 max-w-6xl w-full py-32 px-8">
+            <img src="./assets/img/banner/title.svg" alt="title" class="h-auto w-[225px] mb-auto fade-in">
+            <div class="text-xl text-white">
+                <div class="fade-in mb-16">
+                    <p class="tracking-[16px] font-extralight text-2xl leading-[2]">粋｜Iki</p>
+                    <p class="tracking-[16px] font-extralight">所有講究，只為純粋</p>
+                </div>
+                <div class="text-sm leading-relaxed tracking-[5px] font-thin fade-in">
+                    真正的工藝，從不會急於證明自己。<br>
+                    時間的淬鍊，終將替它說話。<br><br>
+                    凝聚 NISSAN 百年造車底蘊及對未來移動的深刻洞察，<br>
+                    每項創新，皆源於對細節的不斷追求。 將技術藏於無形，將從容留於日常。<br>
+                    這，就是 NISSAN 所詮釋的「粋」。
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="usp-section-web" class="hidden xl:block relative z-10 w-full h-screen overflow-hidden bg-black">        
+        <div class="absolute inset-0 w-full h-full pointer-events-none">
+            <div id="usp-section-web-1" class="usp-bg-img usp-layer-1 absolute inset-0 w-full h-full bg-zinc-600 flex items-center justify-center">
+                <img src="./assets/img/usp/USP_bg01.jpg" alt="" class="w-full h-full object-cover">
+                <div class="usp-title-fade absolute flex justify-center items-center flex-col text-5xl text-white tracking-[16px] font-extralight usp-title">
+                    <span>粋の智驅</span>
+                    <img src="./assets/img/icon/line_lg.svg" alt="line" class="usp-title-line text-white mt-4">
+                </div>
+            </div>
+            <div id="usp-section-web-2" class="usp-bg-img usp-layer-2 absolute inset-0 w-full h-full bg-zinc-700 flex items-center justify-center opacity-0">
+                <img src="./assets/img/usp/USP_bg02.jpg" alt="" class="w-full h-full object-cover">
+                <div class="usp-title-fade absolute flex justify-center items-center flex-col text-5xl text-white tracking-[16px] font-extralight usp-title">
+                    <span>粋の信賴</span>
+                    <img src="./assets/img/icon/line_lg.svg" alt="line" class="usp-title-line text-white mt-4">
+                </div>
+            </div>
+            <div id="usp-section-web-3" class="usp-bg-img usp-layer-3 absolute inset-0 w-full h-full bg-zinc-800 flex items-center justify-center opacity-0">
+                <img src="./assets/img/usp/USP_bg03.jpg" alt="" class="w-full h-full object-cover">
+                <div class="usp-title-fade absolute flex justify-center items-center flex-col text-5xl text-white tracking-[16px] font-extralight usp-title">
+                    <span>粋の心技</span>
+                    <img src="./assets/img/icon/line_lg.svg" alt="line" class="usp-title-line text-white mt-4">
+                </div>
+            </div>
+        </div>
+        <div class="absolute inset-0 w-full h-full">
+            <div class="usp-text-layer usp-layer-1 absolute top-0 left-full w-full h-full flex gap-64 py-16 px-32 bg-black text-white">
+                <div class="flex flex-col justify-center items-center w-[460px]">
+                    <div class="usp-content-title text-8xl font-normal">
+                        粋の智驅
+                    </div>
+                    <div class="text-base max-w-[460px] my-24 mb-32 font-thin">
+                        駕馭，不是強大與舒適之間的取捨，而是兼得的從容。<br>
+                        種種你看不見的智慧追求，最終化為理所當然的自在，<br>
+                        讓你純享駕馭本身。
+                    </div>
+                    <img src="./assets/img/icon/line_lg.svg" alt="line" class="text-white mt-4">
+                </div>
+                <div class="flex flex-col justify-center items-start">
+                    <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
+                        <span class="text-[32px]"> 智動 </span>
+                        <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
+                        <span> 引擎 Engine </span>
+                    </div>
+                    <div class="flex flex-row gap-16">
+                        <video src="./assets/video/test01.mp4" autoplay muted loop playsinline class="w-[350px]"></video>
+                        <div class="flex flex-col justify-start items-start text-sm font-thin leading-[2] ">
+                            <div class="text-white max-w-xl mb-16">
+                                承襲INFINITI L-SUV 最高標準打造的造車工藝，由日本資深工程師茂木克也開發世界創舉，VC-Turbo 可變壓縮比引擎經 20 年淬鍊、耗資 20 億美金研發，並完成超過 300 萬公里實測驗證。其世界獨到技術可於 14:1 高壓縮比與 8:1 低壓縮比間自由切換，如雙重靈魂般，在性能與效率之間給予恰好的回應，一舉獲得 300 項核心專利。結合源自 GT-R R35的鏡面缸孔熔射技術，從降低摩擦、提升耐久性到精準潤滑，直達燃油引擎開發歷史的璀璨頂點。
+                            </div>
+                            <div class="font-light" style="color: #818181;">
+                                VC-TURBO 雙重靈魂｜智慧多連桿｜鏡面高離子噴塗
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-center items-start">
+                    <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
+                        <span class="text-[32px]"> 智行 </span>
+                        <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
+                        <span> 底盤 Chassis </span>
+                    </div>
+                    <div class="flex flex-row gap-16">
+                        <video src="./assets/video/test02.mp4" autoplay muted loop playsinline class="w-[350px]"></video>
+                        <div class="flex flex-col justify-start items-start text-sm font-thin leading-[2]">
+                            <div class="text-white max-w-xl mb-16">
+                                以日法共同開發的CMF-C旗艦平台為基礎，注入F1賽道基因對效率與剛性的追求，車身抗扭轉剛性提升 44%，成就穩健從容的車身動態。搭配豪華車級鋁合金羊角與雙向懸吊鍛件，簧下重量減輕 35%，提升吸震效率與行路質感。從高速巡航的沉穩，到彎道中的精準回應，將旗艦 SUV 的穩健與跑車般的靈敏融於一體，成就始終從容的駕馭樂趣。
+                            </div>
+                            <div class="font-light" style="color: #818181;">
+                                日法CMF-C平台｜GT-R 零延遲轉向工藝｜鋁合金懸吊 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-center items-start">
+                    <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
+                        <span class="text-[32px]"> 智慧 </span>
+                        <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
+                        <span> 黃金三屏幕 </span>
+                    </div>
+                    <div class="flex flex-row gap-16">
+                        <video src="./assets/video/test03.mp4" autoplay muted loop playsinline class="w-[350px]"></video>
+                        <div class="flex flex-col justify-start items-start text-sm font-thin leading-[2]">
+                            <div class="text-white max-w-xl mb-16">
+                                由12.3 吋數位儀表、12.3 吋智慧影音主機與 10.8 吋 HUD 抬頭顯示器構成的黃金三屏座艙，讓資訊依重要程度自然適切呈現，消弭資訊焦慮，成為你的第二個大腦。 HUD 透過專利光學技術，創造約 2.5 公尺遠的虛擬投影距離與 33 公尺寬廣視野，減少駕駛於路況與資訊之間切換時約 1.2 秒的視覺調焦負擔，達成無視差、無重影的純粹專注，這即是承襲頂級戰鬥機設計精神打造的 Zero Layer UX 零層級專注座艙。
+                            </div>
+                            <div class="font-light" style="color: #818181;">
+                                12.3吋影音主機｜12.3吋數位儀表｜10.8吋 HUD
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="usp-text-layer usp-layer-2 absolute top-0 left-full w-full h-full flex gap-64 py-16 px-32 bg-black text-white">
+                <div class="flex flex-col justify-center items-center w-[460px]">
+                    <div class="usp-content-title text-8xl font-normal">
+                        粋の信賴
+                    </div>
+                    <div class="text-base max-w-[460px] my-24 mb-32 font-thin">
+                        真正的安全，不只在危險發生之後，更在風險靠近之前。懷抱零傷亡的願景，NISSAN將安全的思考放在危險發生之前。
+                    </div>
+                    <img src="./assets/img/icon/line_lg.svg" alt="line" class="text-white mt-4">
+                </div>
+                <div class="flex flex-col justify-center items-start">
+                    <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
+                        <span class="text-[32px]"> 信用 </span>
+                        <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
+                        <span> 主安 ProPILOT </span>
+                    </div>
+                    <div class="flex flex-row gap-16">
+                        <video src="./assets/video/test01.mp4" autoplay muted loop playsinline class="w-[350px]"></video>
+                        <div class="flex flex-col justify-start items-start text-sm font-thin leading-[2]">
+                            <div class="text-white max-w-xl mb-16">
+                                ProPILOT 智行安全系統，搭載同級唯一 PFCW 超視距車輛追撞警示系統，以77GHz 毫米波雷達與專利演算法，將感知範圍延伸至前前車，爭取更充裕的反應時間。更整合 ICC、LKALDP、FCW 與 VDC 五大主動安全科技，形成全方位安全防護網。結合高階光學單眼相機與智慧演算法，以及榮獲全球 150 項專利的幾何預算法，即時掌握周遭動態，降低傳統跟車系統常見的 0.1G 突兀體感，並有效消弭1.5秒的作動延遲。從跟車、減速到車道維持，成就絲絲入扣的駕馭體驗。
+                            </div>
+                            <div class="font-light" style="color: #818181;">
+                                150專利ProPILOT｜PFCW超視距雷達｜絲絲入扣自駕體驗
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-center items-start">
+                    <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
+                        <span class="text-[32px]"> 信賴 </span>
+                        <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
+                        <span> 被安 Passive </span>
+                    </div>
+                    <div class="flex flex-row gap-16">
+                        <video src="./assets/video/test02.mp4" autoplay muted loop playsinline class="w-[350px]"></video>
+                        <div class="flex flex-col justify-start items-start text-sm font-thin leading-[2]">
+                            <div class="text-white max-w-xl mb-16">
+                                全車採1500MPa 超高強度鋼材打造核心安全車體，導入豪華車級鋁合金防撞結構，在兼顧輕量化的同時，提供更完整的撞擊防護與耐久表現。前懸吊更採用鋁合金下支臂與鋁合金轉向羊角，有效降低簧下重量，提升車身穩定性與轉向精準度。從車體結構到動態表現，皆為守護旅途的安心而生。
+                            </div>
+                            <div class="font-light" style="color: #818181;">
+                                航太級鋼材採用｜鋁合金輕量化車身
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-center items-start">
+                    <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
+                        <span class="text-[32px]"> 信心 </span>
+                        <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
+                        <span> 製程 Engineering </span>
+                    </div>
+                    <div class="flex flex-row gap-16">
+                        <video src="./assets/video/test03.mp4" autoplay muted loop playsinline class="w-[350px]"></video>
+                        <div class="flex flex-col justify-start items-start text-sm font-thin leading-[2]">
+                            <div class="text-white max-w-xl mb-16">
+                                採航太級雷射拉鍊焊接工藝，提升車身整體剛性與耐久表現，更透過異質材料結合技術，實現兼顧輕量化與安全性的「外鋁內鋼」複合車體結構。車體核心導入雙 Y 字型前縱樑設計，能有效分散撞擊能量，提升防護表現。從材料、結構到製造品質全面對應日本九州標準，讓每台車擁有始終如一的品質信心。
+                            </div>
+                            <div class="font-light" style="color: #818181;">
+                                航太級雷射焊接工藝｜Zone Body 防護哲學
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="usp-text-layer usp-layer-3 absolute top-0 left-full w-full h-full flex gap-64 py-16 px-32 bg-black text-white">
+                <div class="flex flex-col justify-center items-center w-[460px]">
+                    <div class="usp-content-title text-8xl font-normal">
+                        粋の心技
+                    </div>
+                    <div class="text-base max-w-[460px] my-24 mb-32 font-thin">
+                        講究，從非刻意彰顯，是感官所及，自然感受。<br>
+                        當車門闔上的瞬間，車艙不再只是移動空間，更成為觸動靈魂的情緒避難所。
+                    </div>
+                    <img src="./assets/img/icon/line_lg.svg" alt="line" class="text-white mt-4">
+                </div>
+                <div class="flex flex-col justify-center items-start">
+                    <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
+                        <span class="text-[32px]"> 心和 </span>
+                        <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
+                        <span> 平靜 Peaceful </span>
+                    </div>
+                    <div class="flex flex-row gap-16">
+                        <video src="./assets/video/test01.mp4" autoplay muted loop playsinline class="w-[350px]"></video>
+                        <div class="flex flex-col justify-start items-start text-sm font-thin leading-[2]">
+                            <div class="text-white max-w-xl mb-16">
+                                以人為本的日式座艙減壓哲學，從認知、身體到感官層面細膩著墨。感應式迎賓解鎖與無線 Apple CarPlay® 讓科技自然融入日常；Zero Gravity NASA 零重力舒壓座椅、TAKUMI 匠人訂製皮革與高效率負壓吸入式通風科技，帶來無負擔的乘坐感受；搭配萬代南夢宮聲學調校，每次移動，回歸平靜舒適。
+                            </div>
+                            <div class="font-light" style="color: #818181;">
+                                Executive Class 頭等艙座椅｜直覺聲效心理學
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-center items-start">
+                    <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
+                        <span class="text-[32px]"> 心緻 </span>
+                        <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
+                        <span> 精緻 Prestige </span>
+                    </div>
+                    <div class="flex flex-row gap-16">
+                        <video src="./assets/video/test02.mp4" autoplay muted loop playsinline class="w-[350px]"></video>
+                        <div class="flex flex-col justify-start items-start text-sm font-thin leading-[2]">
+                            <div class="text-white max-w-xl mb-16">
+                                受日本傳統工藝啟發，從全新 V-Motion 語彙、大面積日本頂級皮革包覆，到匠粋金飾條與山形曲木飾板，皆是內斂溫潤的日式精緻美學。座艙承襲日式空間禮儀，蝴蝶式雙開中央扶手、懸浮式電子排檔與隱密雙層收納空間，還給駕駛與乘客最自在的空間，兼顧機能、美感與秩序。每次入座，都如置身移動的日式當代茶屋風格。 
+                            </div>
+                            <div class="font-light" style="color: #818181;">
+                                全新 V-Motion 鍛造工藝｜Iki 粋和風精品內裝 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-center items-start">
+                    <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
+                        <span class="text-[32px]"> 心靜 </span>
+                        <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
+                        <span> 靜謐 Tranquility </span>
+                    </div>
+                    <div class="flex flex-row gap-16">
+                        <video src="./assets/video/test03.mp4" autoplay muted loop playsinline class="w-[350px]"></video>
+                        <div class="flex flex-col justify-start items-start text-sm font-thin leading-[2]">
+                            <div class="text-white max-w-xl mb-16">
+                                心靜，始於純淨無擾的感受。藉由 PVB 雙層降噪玻璃，隔絕外界的風切噪音；ANC 主動降噪系統則過濾行駛中的低頻雜訊，守護寧靜舒適的車室環境。在靜謐之中，BOSE 環艙音響系統結合非指向性揚聲器技術，使聲音自然流動於座艙，形塑沉浸式的環艙音場，讓移動，宛如置身在頂級私人樂廳般享受。
+                            </div>
+                            <div class="font-light" style="color: #818181;">
+                                雙層PVB降噪玻璃｜ANC降噪系統｜BOSE 非指向性音響
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="usp-section-mob" class="block xl:hidden relative z-10 w-full overflow-hidden bg-black">
+        <div id="usp-section-mob-1" class="usp-text-layer usp-layer-1 w-full flex flex-col gap-12 bg-black text-white mb-24">
+            <div class="w-full h-full flex items-center justify-center">
+                <img src="./assets/img/usp/USP_bg01.jpg" alt="" class="w-full h-full object-cover" style="mask-image: linear-gradient(to bottom, black 80%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);">
+            </div>
+            <div class="fade-in usp-mob-layer-title flex flex-col justify-center items-start px-8 max-w-sm mx-auto">
+                <div class="usp-content-title text-6xl font-normal">
+                    粋の智驅
+                </div>
+                <div class="text-base mt-8 mb-4 font-thin">
+                    駕馭，不是強大與舒適之間的取捨，而是兼得的從容。<br>
+                    種種你看不見的智慧追求，最終化為理所當然的自在，讓你純享駕馭本身。
+                </div>
+                <img src="./assets/img/icon/line_lg.svg" alt="line" class="text-white mb-4">
+            </div>
+            <div class="fade-in usp-mob-layer-subtitle flex flex-col justify-center items-start px-8 max-w-sm mx-auto">
+                <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
+                    <span class="text-[32px]"> 智動 </span>
+                    <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
+                    <span> 引擎 Engine </span>
+                </div>
+                <div class="usp-mob-content flex flex-col">
+                    <video src="./assets/video/test01.mp4" autoplay muted loop playsinline class="w-full h-auto object-cover max-w-[350px]"></video>
+                    <div class="usp-mob-details flex-col justify-start items-start bg-[#0F0F0F] text-sm">
+                        <div class="p-5">
+                            <div class="text-white mb-8 font-thin leading-[2]">
+                                承襲INFINITI L-SUV 最高標準打造的造車工藝，由日本資深工程師茂木克也開發世界創舉，VC-Turbo 可變壓縮比引擎經 20 年淬鍊、耗資 20 億美金研發，並完成超過 300 萬公里實測驗證。其世界獨到技術可於 14:1 高壓縮比與 8:1 低壓縮比間自由切換，如雙重靈魂般，在性能與效率之間給予恰好的回應，一舉獲得 300 項核心專利。結合源自 GT-R R35的鏡面缸孔熔射技術，從降低摩擦、提升耐久性到精準潤滑，直達燃油引擎開發歷史的璀璨頂點。
+                            </div>
+                            <div class="font-light" style="color: #818181;">
+                                VC-TURBO 雙重靈魂｜智慧多連桿｜鏡面高離子噴塗
+                            </div>
+                        </div>
+                    </div>
+                    <div class="usp-mob-toggle flex justify-center items-center bg-[#0F0F0F] text-sm p-4 text-[#818181] cursor-pointer">
+                        細節說明
+                        <img src="./assets/img/icon/angle-double-small-down.svg" class="w-4 h-4 brightness-0 invert me-2 transition-transform duration-300" alt="toggle icon">
+                    </div>
+                </div>
+            </div>
+            <div class="fade-in usp-mob-layer-subtitle flex flex-col justify-center items-start px-8 max-w-sm mx-auto">
+                <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
+                    <span class="text-[32px]"> 智行 </span>
+                    <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
+                    <span> 底盤 Chassis </span>
+                </div>
+                <div class="usp-mob-content flex flex-col">
+                    <video src="./assets/video/test02.mp4" autoplay muted loop playsinline class="w-full h-auto object-cover max-w-[350px]"></video>
+                    <div class="usp-mob-details flex-col justify-start items-start bg-[#0F0F0F] text-sm">
+                        <div class="p-5">
+                            <div class="text-white mb-8 font-thin leading-[2]">
+                                以日法共同開發的CMF-C旗艦平台為基礎，注入F1賽道基因對效率與剛性的追求，車身抗扭轉剛性提升 44%，成就穩健從容的車身動態。搭配豪華車級鋁合金羊角與雙向懸吊鍛件，簧下重量減輕 35%，提升吸震效率與行路質感。從高速巡航的沉穩，到彎道中的精準回應，將旗艦 SUV 的穩健與跑車般的靈敏融於一體，成就始終從容的駕馭樂趣。
+                            </div>
+                            <div class="font-light" style="color: #818181;">
+                                日法CMF-C平台｜GT-R 零延遲轉向工藝｜鋁合金懸吊 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="usp-mob-toggle flex justify-center items-center bg-[#0F0F0F] text-sm p-4 text-[#818181] cursor-pointer">
+                        細節說明
+                        <img src="./assets/img/icon/angle-double-small-down.svg" class="w-4 h-4 brightness-0 invert me-2 transition-transform duration-300" alt="toggle icon">
+                    </div>
+                </div>
+            </div>
+            <div class="fade-in usp-mob-layer-subtitle flex flex-col justify-center items-start px-8 max-w-sm mx-auto">
+                <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
+                    <span class="text-[32px]"> 智慧 </span>
+                    <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
+                    <span> 黃金三屏幕 </span>
+                </div>
+                <div class="usp-mob-content flex flex-col">
+                    <video src="./assets/video/test03.mp4" autoplay muted loop playsinline class="w-full h-auto object-cover max-w-[350px]"></video>
+                    <div class="usp-mob-details flex-col justify-start items-start bg-[#0F0F0F] text-sm">
+                        <div class="p-5">
+                            <div class="text-white mb-8 font-thin leading-[2]">
+                                由12.3 吋數位儀表、12.3 吋智慧影音主機與 10.8 吋 HUD 抬頭顯示器構成的黃金三屏座艙，讓資訊依重要程度自然適切呈現，消弭資訊焦慮，成為你的第二個大腦。 HUD 透過專利光學技術，創造約 2.5 公尺遠的虛擬投影距離與 33 公尺寬廣視野，減少駕駛於路況與資訊之間切換時約 1.2 秒的視覺調焦負擔，達成無視差、無重影的純粹專注，這即是承襲頂級戰鬥機設計精神打造的 Zero Layer UX 零層級專注座艙。
+                            </div>
+                            <div class="font-light" style="color: #818181;">
+                                12.3吋影音主機｜12.3吋數位儀表｜10.8吋 HUD
+                            </div>
+                        </div>
+                    </div>
+                    <div class="usp-mob-toggle flex justify-center items-center bg-[#0F0F0F] text-sm p-4 text-[#818181] cursor-pointer">
+                        細節說明
+                        <img src="./assets/img/icon/angle-double-small-down.svg" class="w-4 h-4 brightness-0 invert me-2 transition-transform duration-300" alt="toggle icon">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="usp-section-mob-2" class="usp-text-layer usp-layer-1 w-full flex flex-col gap-12 bg-black text-white mb-24">
+            <div class="w-full h-full flex items-center justify-center">
+                <img src="./assets/img/usp/USP_bg02.jpg" alt="" class="w-full h-full object-cover" style="mask-image: linear-gradient(to bottom, black 80%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);">
+            </div>
+            <div class="fade-in usp-mob-layer-title flex flex-col justify-center items-start px-8 max-w-sm mx-auto">
+                <div class="usp-content-title text-6xl font-normal">
+                    粋の信賴
+                </div>
+                <div class="text-base mt-8 mb-4 font-thin">
+                    真正的安全，不只在危險發生之後，更在風險靠近之前。懷抱零傷亡的願景，NISSAN將安全的思考放在危險發生之前。
+                </div>
+                <img src="./assets/img/icon/line_lg.svg" alt="line" class="text-white mb-4">
+            </div>
+            <div class="fade-in usp-mob-layer-subtitle flex flex-col justify-center items-start px-8 max-w-sm mx-auto">
+                <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
+                    <span class="text-[32px]"> 信用 </span>
+                    <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
+                    <span> 主安 ProPILOT </span>
+                </div>
+                <div class="usp-mob-content flex flex-col">
+                    <video src="./assets/video/test01.mp4" autoplay muted loop playsinline class="w-full h-auto object-cover max-w-[350px]"></video>
+                    <div class="usp-mob-details flex-col justify-start items-start bg-[#0F0F0F] text-sm">
+                        <div class="p-5">
+                            <div class="text-white mb-8 font-thin leading-[2]">
+                                ProPILOT 智行安全系統，搭載同級唯一 PFCW 超視距車輛追撞警示系統，以77GHz 毫米波雷達與專利演算法，將感知範圍延伸至前前車，爭取更充裕的反應時間。更整合 ICC、LKALDP、FCW 與 VDC 五大主動安全科技，形成全方位安全防護網。結合高階光學單眼相機與智慧演算法，以及榮獲全球 150 項專利的幾何預算法，即時掌握周遭動態，降低傳統跟車系統常見的 0.1G 突兀體感，並有效消弭1.5秒的作動延遲。從跟車、減速到車道維持，成就絲絲入扣的駕馭體驗。
+                            </div>
+                            <div class="font-light" style="color: #818181;">
+                                150專利ProPILOT｜PFCW超視距雷達｜絲絲入扣自駕體驗
+                            </div>
+                        </div>
+                    </div>
+                    <div class="usp-mob-toggle flex justify-center items-center bg-[#0F0F0F] text-sm p-4 text-[#818181] cursor-pointer">
+                        細節說明
+                        <img src="./assets/img/icon/angle-double-small-down.svg" class="w-4 h-4 brightness-0 invert me-2 transition-transform duration-300" alt="toggle icon">
+                    </div>
+                </div>
+            </div>
+            <div class="fade-in usp-mob-layer-subtitle flex flex-col justify-center items-start px-8 max-w-sm mx-auto">
+                <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
+                    <span class="text-[32px]"> 信賴 </span>
+                    <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
+                    <span> 被安 Passive </span>
+                </div>
+                <div class="usp-mob-content flex flex-col">
+                    <video src="./assets/video/test02.mp4" autoplay muted loop playsinline class="w-full h-auto object-cover max-w-[350px]"></video>
+                    <div class="usp-mob-details flex-col justify-start items-start bg-[#0F0F0F] text-sm">
+                        <div class="p-5">
+                            <div class="text-white mb-8 font-thin leading-[2]">
+                                全車採1500MPa 超高強度鋼材打造核心安全車體，導入豪華車級鋁合金防撞結構，在兼顧輕量化的同時，提供更完整的撞擊防護與耐久表現。前懸吊更採用鋁合金下支臂與鋁合金轉向羊角，有效降低簧下重量，提升車身穩定性與轉向精準度。從車體結構到動態表現，皆為守護旅途的安心而生。
+                            </div>
+                            <div class="font-light" style="color: #818181;">
+                                航太級鋼材採用｜鋁合金輕量化車身
+                            </div>
+                        </div>
+                    </div>
+                    <div class="usp-mob-toggle flex justify-center items-center bg-[#0F0F0F] text-sm p-4 text-[#818181] cursor-pointer">
+                        細節說明
+                        <img src="./assets/img/icon/angle-double-small-down.svg" class="w-4 h-4 brightness-0 invert me-2 transition-transform duration-300" alt="toggle icon">
+                    </div>
+                </div>
+            </div>
+            <div class="fade-in usp-mob-layer-subtitle flex flex-col justify-center items-start px-8 max-w-sm mx-auto">
+                <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
+                    <span class="text-[32px]"> 信心 </span>
+                    <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
+                    <span> 製程 Engineering </span>
+                </div>
+                <div class="usp-mob-content flex flex-col">
+                    <video src="./assets/video/test03.mp4" autoplay muted loop playsinline class="w-full h-auto object-cover max-w-[350px]"></video>
+                    <div class="usp-mob-details flex-col justify-start items-start bg-[#0F0F0F] text-sm">
+                        <div class="p-5">
+                            <div class="text-white mb-8 font-thin leading-[2]">
+                                採航太級雷射拉鍊焊接工藝，提升車身整體剛性與耐久表現，更透過異質材料結合技術，實現兼顧輕量化與安全性的「外鋁內鋼」複合車體結構。車體核心導入雙 Y 字型前縱樑設計，能有效分散撞擊能量，提升防護表現。從材料、結構到製造品質全面對應日本九州標準，讓每台車擁有始終如一的品質信心。
+                            </div>
+                            <div class="font-light" style="color: #818181;">
+                                航太級雷射焊接工藝｜Zone Body 防護哲學
+                            </div>
+                        </div>
+                    </div>
+                    <div class="usp-mob-toggle flex justify-center items-center bg-[#0F0F0F] text-sm p-4 text-[#818181] cursor-pointer">
+                        細節說明
+                        <img src="./assets/img/icon/angle-double-small-down.svg" class="w-4 h-4 brightness-0 invert me-2 transition-transform duration-300" alt="toggle icon">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="usp-section-mob-3" class="usp-text-layer usp-layer-1 w-full flex flex-col gap-12 bg-black text-white mb-24">
+            <div class="w-full h-full flex items-center justify-center">
+                <img src="./assets/img/usp/USP_bg03.jpg" alt="" class="w-full h-full object-cover" style="mask-image: linear-gradient(to bottom, black 80%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);">
+            </div>
+            <div class="fade-in usp-mob-layer-title flex flex-col justify-center items-start px-8 max-w-sm mx-auto">
+                <div class="usp-content-title text-6xl font-normal">
+                    粋の心技
+                </div>
+                <div class="text-base mt-8 mb-4 font-thin">
+                    講究，從非刻意彰顯，是感官所及，自然感受。<br>
+                    當車門闔上的瞬間，車艙不再只是移動空間，更成為觸動靈魂的情緒避難所。
+                </div>
+                <img src="./assets/img/icon/line_lg.svg" alt="line" class="text-white mb-4">
+            </div>
+            <div class="fade-in usp-mob-layer-subtitle flex flex-col justify-center items-start px-8 max-w-sm mx-auto">
+                <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
+                    <span class="text-[32px]"> 心和 </span>
+                    <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
+                    <span> 平靜 Peaceful </span>
+                </div>
+                <div class="usp-mob-content flex flex-col">
+                    <video src="./assets/video/test01.mp4" autoplay muted loop playsinline class="w-full h-auto object-cover max-w-[350px]"></video>
+                    <div class="usp-mob-details flex-col justify-start items-start bg-[#0F0F0F] text-sm">
+                        <div class="p-5">
+                            <div class="text-white mb-8 font-thin leading-[2]">
+                                以人為本的日式座艙減壓哲學，從認知、身體到感官層面細膩著墨。感應式迎賓解鎖與無線 Apple CarPlay® 讓科技自然融入日常；Zero Gravity NASA 零重力舒壓座椅、TAKUMI 匠人訂製皮革與高效率負壓吸入式通風科技，帶來無負擔的乘坐感受；搭配萬代南夢宮聲學調校，每次移動，回歸平靜舒適。
+                            </div>
+                            <div class="font-light" style="color: #818181;">
+                                Executive Class 頭等艙座椅｜直覺聲效心理學
+                            </div>
+                        </div>
+                    </div>
+                    <div class="usp-mob-toggle flex justify-center items-center bg-[#0F0F0F] text-sm p-4 text-[#818181] cursor-pointer">
+                        細節說明
+                        <img src="./assets/img/icon/angle-double-small-down.svg" class="w-4 h-4 brightness-0 invert me-2 transition-transform duration-300" alt="toggle icon">
+                    </div>
+                </div>
+            </div>
+            <div class="fade-in usp-mob-layer-subtitle flex flex-col justify-center items-start px-8 max-w-sm mx-auto">
+                <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
+                    <span class="text-[32px]"> 心緻 </span>
+                    <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
+                    <span> 精緻 Prestige </span>
+                </div>
+                <div class="usp-mob-content flex flex-col">
+                    <video src="./assets/video/test02.mp4" autoplay muted loop playsinline class="w-full h-auto object-cover max-w-[350px]"></video>
+                    <div class="usp-mob-details flex-col justify-start items-start bg-[#0F0F0F] text-sm">
+                        <div class="p-5">
+                            <div class="text-white mb-8 font-thin leading-[2]">
+                                受日本傳統工藝啟發，從全新 V-Motion 語彙、大面積日本頂級皮革包覆，到匠粋金飾條與山形曲木飾板，皆是內斂溫潤的日式精緻美學。座艙承襲日式空間禮儀，蝴蝶式雙開中央扶手、懸浮式電子排檔與隱密雙層收納空間，還給駕駛與乘客最自在的空間，兼顧機能、美感與秩序。每次入座，都如置身移動的日式當代茶屋風格。 
+                            </div>
+                            <div class="font-light" style="color: #818181;">
+                                全新 V-Motion 鍛造工藝｜Iki 粋和風精品內裝 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="usp-mob-toggle flex justify-center items-center bg-[#0F0F0F] text-sm p-4 text-[#818181] cursor-pointer">
+                        細節說明
+                        <img src="./assets/img/icon/angle-double-small-down.svg" class="w-4 h-4 brightness-0 invert me-2 transition-transform duration-300" alt="toggle icon">
+                    </div>
+                </div>
+            </div>
+            <div class="fade-in usp-mob-layer-subtitle flex flex-col justify-center items-start px-8 max-w-sm mx-auto">
+                <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
+                    <span class="text-[32px]"> 心靜 </span>
+                    <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
+                    <span> 靜謐 Tranquility </span>
+                </div>
+                <div class="usp-mob-content flex flex-col">
+                    <video src="./assets/video/test03.mp4" autoplay muted loop playsinline class="w-full h-auto object-cover max-w-[350px]"></video>
+                    <div class="usp-mob-details flex-col justify-start items-start bg-[#0F0F0F] text-sm">
+                        <div class="p-5">
+                            <div class="text-white mb-8 font-thin leading-[2]">
+                                心靜，始於純淨無擾的感受。藉由 PVB 雙層降噪玻璃，隔絕外界的風切噪音；ANC 主動降噪系統則過濾行駛中的低頻雜訊，守護寧靜舒適的車室環境。在靜謐之中，BOSE 環艙音響系統結合非指向性揚聲器技術，使聲音自然流動於座艙，形塑沉浸式的環艙音場，讓移動，宛如置身在頂級私人樂廳般享受。
+                            </div>
+                            <div class="font-light" style="color: #818181;">
+                                雙層PVB降噪玻璃｜ANC降噪系統｜BOSE 非指向性音響
+                            </div>
+                        </div>
+                    </div>
+                    <div class="usp-mob-toggle flex justify-center items-center bg-[#0F0F0F] text-sm p-4 text-[#818181] cursor-pointer">
+                        細節說明
+                        <img src="./assets/img/icon/angle-double-small-down.svg" class="w-4 h-4 brightness-0 invert me-2 transition-transform duration-300" alt="toggle icon">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="price-section" class="relative z-50 w-full xl:min-h-screen flex flex-col items-center justify-center">
+        <div class="flex-1 w-full h-auto xl:h-full relative">
+            <img class="price-bg-image absolute inset-0 w-full h-full object-cover" src="./assets/img/price/Price_bg.jpg" alt="price bg Image">
+            <div class="price-content relative xl:absolute w-full h-auto xl:h-full top-0 left-0 bg-black bg-opacity-80 flex items-center justify-center">
+                <div class="flex xl:flex-row flex-col items-center justify-center gap-16 w-full h-full  py-16 xl:py-32 px-16 md:px-8">
+                    <img src="./assets/img/banner/title.svg" alt="title" class="w-[200px] xl:w-[265px] h-auto ">
+                    <div class="flex flex-col w-full xl:w-auto justify-center items-center">
+                        <div id="price-table-web" class="hidden xl:flex flex-row justify-center items-center text-xl px-32 py-8" style="color: #616161; background-color: #F7F7F7;">
+                            <div class="fade-in text-center">
+                                <p class="font-bold">淳粋版</p>
+                                <p class="text-lg">99.9萬元</p>
+                            </div>
+                            <img src="./assets/img/icon/line_price.svg" alt="line" class="mx-8" style="height: auto;width: 10px;">
+                            <div class="fade-in text-center">
+                                <p class="font-bold">精粋版</p>
+                                <p class="text-lg">109.9萬元</p>
+                            </div>
+                            <img src="./assets/img/icon/line_price.svg" alt="line" class="mx-8" style="height: auto;width: 10px;">
+                            <div class="fade-in text-center">
+                                <p class="font-bold">極粋版</p>
+                                <p class="text-lg">118.5萬元</p>
+                            </div>
+                        </div>
+                        <div id="price-table-mob" class="flex xl:hidden flex-col justify-center items-center text-xl px-4 py-8 w-[240px]" style="color: #616161; background-color: #F7F7F7;">
+                            <div class="flex justify-between border-b w-full pb-3 mb-3" style="border-color: #E2E2E2;">
+                                <span class="fade-in font-bold">淳粋版</span>
+                                <span class="text-lg">99.9萬元</span>
+                            </div>
+                            <div class="flex justify-between border-b w-full pb-3 mb-3" style="border-color: #E2E2E2;">
+                                <span class="fade-in font-bold">精粋版</span>
+                                <span class="text-lg">109.9萬元</span>
+                            </div>
+                            <div class="flex justify-between w-full pb-2 mb-2">
+                                <span class="fade-in font-bold">極粋版</span>
+                                <span class="text-lg">118.5萬元</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col xl:flex-row justify-center justify-center xl:w-full max-w-sm xl:max-w-none gap-4 mt-8 text-white">                            
+                            <a class="text-sm w-[240px] xl:w-1/2 py-3 text-center flex items-center justify-center gap-2 bg-[#BEA894] hover:bg-[#8a7465] transition-colors duration-300 cursor-pointer">
+                                <img src="./assets/img/icon/file-pdf.svg" class="w-4 h-4 brightness-0 invert" alt="pdf icon">
+                                型錄下載
+                            </a>
+                            <a class="text-sm w-[240px] xl:w-1/2 py-3 text-center flex items-center justify-center gap-2 bg-[#BEA894] hover:bg-[#8a7465] transition-colors duration-300 cursor-pointer">
+                                <img src="./assets/img/icon/pen-clip.svg" class="w-4 h-4 brightness-0 invert" alt="pen icon">
+                                親身感受「粋」
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer w-full bg-black ">
+            © NISSAN TAIWAN.
+        </div>
+    </section>
+
+    <div id="side-btn" class="fixed right-0 top-2/3 -translate-y-1/2 z-[120] flex flex-col gap-y-[2px] bg-zinc-800 p-[1px] group w-12 hover:w-[160px] transition-all duration-300 ease-in-out overflow-hidden">
+        <a href="#price-section" class="flex items-center justify-between w-[158px] h-12 bg-[#1E1E1E] px-4 text-white transition-colors duration-300 hover:text-[#BEA894]">
+            <div class="flex items-center gap-x-3 whitespace-nowrap font-light text-xs tracking-[2px]">
+                <img src="./assets/img/icon/pen-clip.svg" class="w-4 h-4 brightness-0 invert me-2" alt="pdf icon">
+                <span>預約試乘</span>
+            </div>
+        </a>
+        <a href="#price-section" class="flex items-center justify-between w-[158px] h-12 bg-[#1E1E1E] px-4 text-white transition-colors duration-300 hover:text-[#BEA894]">
+            <div class="flex items-center gap-x-3 whitespace-nowrap font-light text-xs tracking-[2px]">
+                <img src="./assets/img/icon/file-pdf.svg" class="w-4 h-4 brightness-0 invert me-2" alt="pdf icon">
+                <span>型錄下載</span>
+            </div>
+        </a>
+
+    </div>
+
+    <!-- content here end -->
+
+    <script src="./assets/js/gsap.min.js"></script>
+    <script src="./assets/js/ScrollTrigger.min.js"></script>
+    <script src="./assets/js/lenis.min.js"></script>
+
+    <script>
+        // =====================================================
+        //  區塊 1：開關邏輯
+        // =====================================================
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // 手機選單開關邏輯
+            const toggleBtn    = document.getElementById('mobile-menu');
+            const dropdownMenu = document.getElementById('mobile-dropdown-menu');
+            const menuLinks    = document.querySelectorAll('.mobile-menu-link');
+
+            if (!toggleBtn || !dropdownMenu) return;
+
+            toggleBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                dropdownMenu.classList.toggle('hidden');
+            });
+
+            menuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    dropdownMenu.classList.add('hidden');
+                });
+            });
+
+            document.addEventListener('click', (e) => {
+                const isMenuOpen     = !dropdownMenu.classList.contains('hidden');
+                const clickedOutside = !toggleBtn.contains(e.target) && !dropdownMenu.contains(e.target);
+                if (isMenuOpen && clickedOutside) {
+                    dropdownMenu.classList.add('hidden');
+                }
+            });
+
+            // USP 手機版的 toggle 按鈕
+            const uspToggles = document.querySelectorAll('.usp-mob-toggle');
+
+            uspToggles.forEach(toggle => {
+                const details = toggle.previousElementSibling;
+                if (details && details.classList.contains('usp-mob-details')) {
+                    details.dataset.isOpen = 'false';
+                    gsap.set(details, { maxHeight: 0 });
+                }
+            });
+
+            function closeDetails(details) {
+                const toggle = details.nextElementSibling;
+                const icon = toggle ? toggle.querySelector('img') : null;
+                details.dataset.isOpen = 'false';
+                gsap.set(details, { maxHeight: 0 });
+                if (icon) gsap.set(icon, { rotation: 0 });
+            }
+
+            function openDetails(details) {
+                const toggle = details.nextElementSibling;
+                const icon = toggle ? toggle.querySelector('img') : null;
+                details.dataset.isOpen = 'true';
+                gsap.to(details, {
+                    duration: 0.45,
+                    maxHeight: details.scrollHeight + 20,
+                    ease: 'power3.inOut'
+               
+                });
+                if (icon) {
+                    gsap.to(icon, { duration: 0.35, rotation: 180, ease: 'power2.out' });
+                }
+            }
+
+            uspToggles.forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    const details = toggle.previousElementSibling;
+                    if (!details || !details.classList.contains('usp-mob-details')) return;
+
+                    const isOpen = details.dataset.isOpen === 'true';
+
+                    if (isOpen) {
+                        closeDetails(details);
+                        return;
+                    }
+
+                    const targetContent = details.closest('.usp-mob-content');
+                    const othersOpen = [];
+                    uspToggles.forEach(otherToggle => {
+                        if (otherToggle === toggle) return;
+                        const otherDetails = otherToggle.previousElementSibling;
+                        if (otherDetails && otherDetails.classList.contains('usp-mob-details') && otherDetails.dataset.isOpen === 'true') {
+                            othersOpen.push(otherDetails);
+                        }
+                    });
+
+                    if (othersOpen.length === 0) {
+                        requestAnimationFrame(() => {
+                            if (targetContent) {
+                                lenis.scrollTo(targetContent, { offset: -140, duration: 0.6, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+                                openDetails(details);
+                            }
+                        });
+                    } else {
+                        othersOpen.forEach(other => closeDetails(other));
+                        setTimeout(() => {
+                            requestAnimationFrame(() => {
+                                if (targetContent) {
+                                    lenis.scrollTo(targetContent, { offset: -140, duration: 0.6, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+                                }
+                                openDetails(details);
+                            });
+                        }, 200);
+                    }
+                });
+            });
+        });
+
+
+        // =====================================================
+        //  區塊 2：初始化 GSAP + Lenis 平滑滾動
+        // =====================================================
+        gsap.registerPlugin(ScrollTrigger);
+
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true
+        });
+
+        lenis.on('scroll', ScrollTrigger.update);
+
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000); // 將 GSAP 時間轉換為毫秒後傳給 Lenis
+        });
+        gsap.ticker.lagSmoothing(0); // 關閉延遲補償，確保動畫精準同步
+
+        // 攔截所有 #錨點連結，改用 Lenis 平滑滾動（避免瀏覽器原生瞬間跳轉）
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                const hash = anchor.getAttribute('href');
+                if (!hash || hash === '#') return; // 空錨點（如 logo）不處理
+
+                const id = hash.slice(1);
+
+                // 統一的滾動執行函式：滾動完成後強制刷新所有 ScrollTrigger，
+                // 確保中途經過的 scrub 時間軸（如 header 切換動畫）同步到正確的最終狀態
+                const runScrollTo = (target, options) => {
+                    e.preventDefault();
+                    lenis.scrollTo(target, {
+                        duration: 1.2,
+                        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                        onComplete: () => ScrollTrigger.update(),
+                        ...options
+                    });
+                };
+
+                // 特殊處理：usp-section-web-1/2/3 是 pinned timeline 內的虛擬 layer，
+                // 沒有獨立高度，需改用 timeline label 換算對應的 scroll 位置
+                const uspLayerMatch = id.match(/^usp-section-web-([123])$/);
+                if (uspLayerMatch && uspTl && uspTl.scrollTrigger) {
+                    const labelName = `layer${uspLayerMatch[1]}`;
+                    const st = uspTl.scrollTrigger;
+                    const progress = uspTl.labels[labelName] / uspTl.duration();
+                    const targetScroll = st.start + progress * (st.end - st.start);
+
+                    runScrollTo(targetScroll, {});
+                    return;
+                }
+
+                // 特殊處理：mobile-dropdown-menu 的 USP 連結固定指向 #usp-section-mob，
+                // 但電腦版（>=1440px）捲動後也會顯示此選單，此時要改滾到對應的 web layer 進度
+                const uspTarget = anchor.dataset.uspTarget;
+                if (uspTarget && window.innerWidth >= 1440 && uspTl && uspTl.scrollTrigger) {
+                    const labelName = `layer${uspTarget}`;
+                    const st = uspTl.scrollTrigger;
+                    const progress = uspTl.labels[labelName] / uspTl.duration();
+                    const targetScroll = st.start + progress * (st.end - st.start);
+
+                    runScrollTo(targetScroll, {});
+                    return;
+                }
+
+                const target = document.querySelector(hash);
+                if (!target) return;
+
+                runScrollTo(target, { offset: 0 });
+            });
+        });
+
+
+        // =====================================================
+        //  區塊 3：KV 主視覺區 — 橫向視差 + 文字淡入 + Title 縮小
+        // =====================================================
+        const kvBgImage = document.querySelector('.kv-bg-image');
+        const kvTitle   = document.querySelector('.kv-title');
+        const kvTrigger = document.getElementById('kv-trigger');
+
+        const KV_EXTRA_SCROLL = 500; // 圖片移完後額外停留的滾動距離（像素）
+
+        // 計算背景圖可向左橫移的最大距離（圖片超出視窗的寬度）
+        const getKvScrollAmount = () => {
+            const isPortrait = window.innerHeight > window.innerWidth;
+            const fixAmount  = isPortrait ? 33 : 0;
+            return Math.max(0, kvBgImage.offsetWidth - window.innerWidth - fixAmount);
+        };
+
+        // 動態設定 kv-trigger 高度，使滾動距離 = 視窗高 + 橫移空間 + 額外停留
+        const updateKvTriggerHeight = () => {
+            kvTrigger.style.height = `${window.innerHeight + getKvScrollAmount() + KV_EXTRA_SCROLL}px`;
+        };
+
+        // 依裝置方向切換桌機版／手機版背景圖，換圖後重新計算高度
+        const handleKvImageSource = () => {
+            const isPortrait = window.innerHeight > window.innerWidth;
+            const targetSrc  = isPortrait
+                ? "./assets/img/banner/banner_m.jpg"
+                : "./assets/img/banner/banner_d.jpg";
+
+            if (kvBgImage.getAttribute('src') !== targetSrc) {
+                // 圖片來源改變：等新圖載入完才更新高度
+                kvBgImage.src    = targetSrc;
+                kvBgImage.onload = () => {
+                    updateKvTriggerHeight();
+                    ScrollTrigger.refresh();
+                };
+            } else {
+                // 圖片不變：直接更新高度即可
+                updateKvTriggerHeight();
+                ScrollTrigger.refresh();
+            }
+        };
+
+        // =====================================================
+        //  區塊 4：USP 區塊 — 橫向滾動圖文切換動畫
+        // =====================================================
+
+        const uspBgImages    = gsap.utils.toArray('.usp-bg-img');
+        const uspTextLayers  = gsap.utils.toArray('.usp-text-layer');
+        const uspTitleFades  = gsap.utils.toArray('.usp-title-fade'); // usp-section-web 內的標題，沒有獨立文件位置，須改由 uspTl 內部時間點驅動 fade-in
+
+        let uspTl = null; // 儲存目前 USP timeline 實例，供錨點滾動定位使用
+
+        function buildUspTimeline() {
+            // 三個標題與 usp-bg-img 同樣是 inset-0 疊在一起，文件位置完全相同，
+            // 無法用獨立的 ScrollTrigger("top 85%") 判斷個別出現時機，
+            // 改為設定初始狀態，再由 timeline 對應 label 時間點精準觸發 fade-in
+            gsap.set(uspTitleFades, { opacity: 0, y: 40 });
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#usp-section-web",
+                    start: "top top",
+                    end: "+=1000%",
+                    pin: true,
+                    scrub: 0.5,
+                    anticipatePin: 1
+                }
+            });
+
+            tl.addLabel("layer1");
+            tl.to(uspTitleFades[0], { opacity: 1, y: 0, duration: 1.2, ease: "power2.out" });
+            tl.to({}, { duration: 0.5 });
+            tl.to(uspTextLayers[0], { left: "0%", ease: "none", duration: 4 });
+            tl.to(uspTextLayers[0], { xPercent: -100, ease: "none", duration: 8 })
+                .to(uspBgImages[0], { opacity: 0, duration: 0.1 }, "<")
+                .to(uspBgImages[1], { opacity: 1, duration: 0.1 }, "<");
+
+
+            tl.addLabel("layer2");
+            tl.to(uspTitleFades[1], { opacity: 1, y: 0, duration: 1.2, ease: "power2.out" });
+            tl.to({}, { duration: 0.5 });
+            tl.to(uspTextLayers[1], { left: "0%", ease: "none", duration: 4 });
+            tl.to(uspTextLayers[1], { xPercent: -100, ease: "none", duration: 8 })
+                .to(uspBgImages[1], { opacity: 0, duration: 0.1 }, "<")
+                .to(uspBgImages[2], { opacity: 1, duration: 0.1 }, "<")
+
+            tl.addLabel("layer3");
+            tl.to(uspTitleFades[2], { opacity: 1, y: 0, duration: 1.2, ease: "power2.out" });
+            tl.to({}, { duration: 0.5 });
+            tl.to(uspTextLayers[2], { left: "0%", ease: "none", duration: 4 });
+            tl.to(uspTextLayers[2], {
+                x: () => -(uspTextLayers[2].offsetWidth - window.innerWidth),
+                ease: "none",
+                duration: 8
+            });
+
+            tl.to({}, { duration: 4 });
+
+            uspTl = tl;
+            return tl;
+        }
+
+        // =====================================================
+        //  區塊 5：RWD 響應式 — Header 切換 + Side Button 顯示
+        // =====================================================
+
+        function buildLandscapeHeaderSwitchTimeline() {
+            return gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#intro-section",
+                    start: "top 200px",
+                    end: "top top",
+                    scrub: true
+                }
+            })
+            .to("#web-logo, #web-menu", { opacity: 0, pointerEvents: "none", ease: "none", duration: 1 }, 0)
+            .to("#mobile-header", { display: "flex", pointerEvents: "auto", ease: "none", duration: 1 }, 0)
+            .to("#mobile-logo, #mobile-menu", { opacity: 1, pointerEvents: "auto", ease: "none", duration: 1 }, 0)
+            .to("#side-btn", { opacity: 1, pointerEvents: "auto", ease: "none", duration: 1 }, 0);
+        }
+
+
+        // =====================================================
+        //  區塊 6：完整初始化 / Resize 重建
+        // =====================================================
+
+        /**
+         * init GSAP inline style
+         */
+        function resetInlineStyles() {
+            // KV
+            gsap.set(".kv-bg-image", { clearProps: "x", filter: "blur(8px)" });
+            gsap.set(".kv-content",  { clearProps: "opacity" });
+            gsap.set(".kv-title",    { clearProps: "x,y,scale" });
+            gsap.set(".kv-title",    { scale: window.innerWidth > 1440 ? 1 : (window.innerWidth < 768 ? 0.5 : 0.7)});
+            gsap.set(".kv-overlay",  { clearProps: "opacity" });
+            // Header
+            gsap.set("#web-logo",  { clearProps: "opacity,x" });
+            gsap.set("#web-menu",  { clearProps: "opacity,x,gap" });
+            gsap.set("#mobile-header", { clearProps: "display,opacity,yPercent,pointerEvents" });
+            gsap.set("#mobile-logo, #mobile-menu", { clearProps: "opacity,pointerEvents" });
+            gsap.set("#side-btn",  { clearProps: "opacity,pointerEvents" });
+            // USP web
+            uspTextLayers.forEach(el => gsap.set(el, { clearProps: "left,x,xPercent" }));
+            uspBgImages.forEach(el   => gsap.set(el, { clearProps: "opacity" }));
+            uspTitleFades.forEach(el => gsap.set(el, { clearProps: "all" }));
+            // Fade In Elements
+            gsap.utils.toArray(".fade-in").forEach(el => gsap.set(el, { clearProps: "all" }));
+        }
+
+        function buildKvTimeline() {
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#kv-trigger",
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: 1,
+                    invalidateOnRefresh: true
+                }
+            });
+
+            tl.to(".kv-bg-image", {
+                x: () => -getKvScrollAmount(),
+                filter: "blur(0px)",
+                ease: "none",
+                duration: 1
+            }, 0);
+
+            tl.to(".kv-content", {
+                opacity: 1,
+                ease: "power1.inOut",
+                duration: 1.2
+            }, 0.5);
+
+            tl.to(".kv-title", {
+                x: () => {
+                    const scale = window.innerWidth > 1440 ? 0.5 : (window.innerWidth < 768 ? 0.25 : 0.35);
+                    return (30 + (kvTitle.offsetWidth * scale) / 2) - (window.innerWidth / 2);
+                },
+                y: () => {
+                    const scale = window.innerWidth > 1440 ? 0.5 : (window.innerWidth < 768 ? 0.25 : 0.35);
+                    return (window.innerHeight - 30 - (kvTitle.offsetHeight * scale) / 2) - (window.innerHeight / 2);
+                },
+                scale: () => window.innerWidth > 1440 ? 0.5 : (window.innerWidth < 768 ? 0.25 : 0.35),
+                ease: "power1.inOut",
+                duration: 1.2
+            }, 0);
+
+            tl.to(".kv-overlay", {
+                opacity: 0.25,
+                ease: "none",
+                duration: 1
+            }, 0);
+
+            tl.to({}, { duration: 0.6 });
+
+            return tl;
+        }
+
+        let mm = null;
+
+        function init() {
+            // 1. init matchMedia
+            if (mm) mm.revert();
+            ScrollTrigger.getAll().forEach(st => st.kill());
+            resetInlineStyles();
+
+            // 2. 重建 KV Timeline
+            const kvTl = buildKvTimeline();
+
+            // 3. 重新建立 matchMedia（須先建立，讓 USP/KV 等 pin 動畫產生的 spacer 高度
+            //    先落地，後面的 fade-in ScrollTrigger 才能量到正確的捲動觸發位置）
+            mm = gsap.matchMedia();
+
+            // ── 情境 1：電腦版（寬度 >= 1440px）──
+            mm.add("(min-width: 1440px)", () => {
+                buildLandscapeHeaderSwitchTimeline();
+
+                kvTl.to("#web-logo", { opacity: 1, x: 0, ease: "power1.out", duration: 1 }, 0.8);
+                kvTl.to("#web-menu", { opacity: 1, x: 0, gap: "3rem", ease: "power2.out", duration: 1.2 }, 0.5);
+
+                buildUspTimeline();
+            });
+
+            // ── 情境 2：平板橫屏（768px ~ 1439px，橫向且高度 >= 500px）──
+            mm.add("(min-width: 768px) and (max-width: 1439px) and (orientation: landscape) and (min-height: 500px)", () => {
+                buildLandscapeHeaderSwitchTimeline();
+
+                kvTl.to("#web-logo", { opacity: 1, x: 0, ease: "power1.out", duration: 1 }, 0.8);
+                kvTl.to("#web-menu", { opacity: 1, x: 0, gap: "3rem", ease: "power2.out", duration: 1.2 }, 0.5);
+            });
+
+            // ── 情境 3：手機直屏、平板直屏、小螢幕橫屏 ──
+            mm.add([
+                "(max-width: 767px)",
+                "(max-width: 960px) and (orientation: landscape) and (max-height: 500px)",
+                "(min-width: 768px) and (max-width: 1439px) and (orientation: portrait)"
+            ].join(", "), () => {
+                gsap.set("#mobile-header", { yPercent: -100, opacity: 0 });
+                kvTl.to("#mobile-header", {
+                    yPercent: 0,
+                    opacity: 1,
+                    ease: "power2.out",
+                    duration: 1.2
+                }, 0.5);
+
+                gsap.to("#side-btn", {
+                    scrollTrigger: {
+                        trigger: "#intro-section",
+                        start: "top 200px",
+                        end: "top top",
+                        scrub: true
+                    },
+                    opacity: 1,
+                    pointerEvents: "auto",
+                    ease: "none"
+                });
+            });
+            handleKvImageSource();
+
+            // 4. 建立 Fade In 捲動觸發動畫（上滾離開視窗時重置，再次下滾會重新觸發）
+            //    放在 matchMedia／pin timeline 建立之後，避免 usp-section-web 等 pin
+            //    動畫產生的大量 spacer 高度還沒落地，導致下方 price-table-web 等元素
+            //    的觸發位置被量到尚未展開前的舊版面，造成動畫提早播完、看不到效果
+            gsap.utils.toArray(".fade-in").forEach(element => {
+                gsap.fromTo(element, 
+                    { opacity: 0, y: 40 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 1.6,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: element,
+                            start: "top 85%",
+                            toggleActions: "play none none reverse"
+                        }
+                    }
+                );
+            });
+
+            // 5. 所有 ScrollTrigger／pin spacer 都建立完成後，強制重新量測一次，
+            //    確保 fade-in 觸發位置是依照最終版面計算
+            requestAnimationFrame(() => ScrollTrigger.refresh());
+        }
+
+        // onMounted 時，若圖片已載入則直接 init()，否則等圖片 load 後再 init()
+        if (kvBgImage.complete) {
+            init();
+        } else {
+            kvBgImage.addEventListener('load', init, { once: true });
+        }
+
+        // Resize
+        let resizeTimer = null;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                init();
+            }, 200);
+        });
+
+    </script>
+</body>
+</html>
