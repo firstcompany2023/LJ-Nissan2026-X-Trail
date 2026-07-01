@@ -1238,6 +1238,7 @@
         const uspTitleFades  = gsap.utils.toArray('.usp-title-fade'); // usp-section-web 內的標題，沒有獨立文件位置，須改由 uspTl 內部時間點驅動 fade-in
 
         let uspTl = null; // 儲存目前 USP timeline 實例，供錨點滾動定位使用
+        const isTouchDevice = navigator.maxTouchPoints > 0;
 
         function buildUspTimeline() {
             // 三個標題與 usp-bg-img 同樣是 inset-0 疊在一起，文件位置完全相同，
@@ -1333,8 +1334,10 @@
             uspTextLayers.forEach(el => gsap.set(el, { clearProps: "left,x,xPercent" }));
             uspBgImages.forEach(el   => gsap.set(el, { clearProps: "opacity" }));
             uspTitleFades.forEach(el => gsap.set(el, { clearProps: "all" }));
-            // Fade In Elements
-            gsap.utils.toArray(".fade-in").forEach(el => gsap.set(el, { clearProps: "all" }));
+            // Fade In Elements（觸控裝置用 IntersectionObserver，resize 後不清除已完成的動畫結果）
+            if (!isTouchDevice) {
+                gsap.utils.toArray(".fade-in").forEach(el => gsap.set(el, { clearProps: "all" }));
+            }
         }
 
         function buildKvTimeline() {
@@ -1451,27 +1454,45 @@
             //    放在 matchMedia／pin timeline 建立之後，避免 usp-section-web 等 pin
             //    動畫產生的大量 spacer 高度還沒落地，導致下方 price-table-web 等元素
             //    的觸發位置被量到尚未展開前的舊版面，造成動畫提早播完、看不到效果
-            const isTouchDevice = navigator.maxTouchPoints > 0;
+            // 行動裝置用 IntersectionObserver，桌面用 ScrollTrigger
+            if (isTouchDevice) {
+                // 行動裝置：用 IntersectionObserver 取代 ScrollTrigger，
+                // 觸發後立即 unobserve，完全不受 ScrollTrigger.refresh() 影響，不會重播。
+                const fadeObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (!entry.isIntersecting) return;
+                        gsap.fromTo(entry.target,
+                            { opacity: 0, y: 40 },
+                            { opacity: 1, y: 0, duration: 1.4, ease: "power2.out" }
+                        );
+                        fadeObserver.unobserve(entry.target);
+                    });
+                }, { threshold: 0.1 });
 
-            gsap.utils.toArray(".fade-in").forEach(element => {
-                gsap.fromTo(element, 
-                    { opacity: 0, y: 40 },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        duration: 1.4,
-                        ease: "power2.out",
-                        scrollTrigger: {
-                            trigger: element,
-                            start: "top 85%",
-                            ...(isTouchDevice
-                                ? { once: true }
-                                : { toggleActions: "play none none reverse" }
-                            )
+                gsap.utils.toArray(".fade-in").forEach(element => {
+                    gsap.set(element, { opacity: 0, y: 40 });
+                    fadeObserver.observe(element);
+                });
+
+            } else {
+                // 桌面：維持 ScrollTrigger，上滾離開重置，下滾重新觸發
+                gsap.utils.toArray(".fade-in").forEach(element => {
+                    gsap.fromTo(element,
+                        { opacity: 0, y: 40 },
+                        {
+                            opacity: 1,
+                            y: 0,
+                            duration: 1.4,
+                            ease: "power2.out",
+                            scrollTrigger: {
+                                trigger: element,
+                                start: "top 85%",
+                                toggleActions: "play none none reverse"
+                            }
                         }
-                    }
-                );
-            });
+                    );
+                });
+            }
 
             // 5. 所有 ScrollTrigger／pin spacer 都建立完成後，強制重新量測一次，
             //    確保 fade-in 觸發位置是依照最終版面計算
