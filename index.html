@@ -455,7 +455,7 @@
     </header>
 
     <div id="kv-trigger" class="relative w-full">
-        <section id="kv-section" class="fixed top-0 left-0 w-full h-screen overflow-hidden bg-black flex items-center justify-center z-1">
+        <section id="kv-section" class="fixed top-0 left-0 w-full overflow-hidden bg-black flex items-center justify-center z-1 h-dvh xl:h-screen">
             <img class="kv-bg-image" src="./assets/img/banner/banner_d.webp" alt="KV Banner Image">
             <div class="kv-overlay"></div>
             <div class="kv-title">
@@ -465,7 +465,7 @@
         </section>
     </div>
 
-    <section id="intro-section" class="relative z-10 w-full bg-black flex items-center justify-center h-screen md:h-auto">
+    <section id="intro-section" class="relative z-10 w-full bg-black flex items-center justify-center h-dvh md:h-auto">
         <div id="intro-content" class="flex flex-row items-center justify-center gap-16 max-w-6xl w-full py-32 px-8">
             <img src="./assets/img/banner/title.svg" alt="title" class="h-auto w-[225px] my-auto fade-in">
             <div class="text-xl text-white">
@@ -484,7 +484,7 @@
         </div>
     </section>
 
-    <section id="usp-section-web" class="hidden xl:block relative z-10 w-full h-screen overflow-hidden bg-black">        
+    <section id="usp-section-web" class="hidden xl:block relative z-10 w-full overflow-hidden bg-black h-dvh xl:h-screen">        
         <div class="absolute inset-0 w-full h-full pointer-events-none">
             <div id="usp-section-web-1" class="usp-bg-img usp-layer-1 absolute inset-0 w-full h-full bg-zinc-600 flex items-center justify-center">
                 <img src="./assets/img/usp/USP_bg01.webp" alt="" class="w-full h-full object-cover">
@@ -1049,7 +1049,7 @@
     <script src="./assets/js/gsap.min.js"></script>
     <script src="./assets/js/ScrollTrigger.min.js"></script>
     <script src="./assets/js/lenis.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+    <script src="./assets/js/lottie.min.js"></script>
 
     <script>
         // =====================================================
@@ -1275,6 +1275,12 @@
 
         const KV_EXTRA_SCROLL = 500; // 圖片移完後額外停留的滾動距離（像素）
 
+        // 取得穩定的視窗高度：觸控裝置用 visualViewport.height 避免 iOS URL bar 影響
+        const getStableHeight = () =>
+            (isTouchDevice && window.visualViewport)
+                ? window.visualViewport.height
+                : window.innerHeight;
+
         // 計算背景圖可向左橫移的最大距離（圖片超出視窗的寬度）
         const getKvScrollAmount = () => {
             const isPortrait = window.innerHeight > window.innerWidth;
@@ -1284,7 +1290,7 @@
 
         // 動態設定 kv-trigger 高度，使滾動距離 = 視窗高 + 橫移空間 + 額外停留
         const updateKvTriggerHeight = () => {
-            kvTrigger.style.height = `${window.innerHeight + getKvScrollAmount() + KV_EXTRA_SCROLL}px`;
+            kvTrigger.style.height = `${getStableHeight() + getKvScrollAmount() + KV_EXTRA_SCROLL}px`;
         };
 
         // 依裝置方向切換桌機版／手機版背景圖，換圖後重新計算高度
@@ -1450,7 +1456,7 @@
                 },
                 y: () => {
                     const scale = window.innerWidth > 1440 ? 0.5 : (window.innerWidth < 768 ? 0.25 : 0.35);
-                    return (window.innerHeight - 30 - (kvTitle.offsetHeight * scale) / 2) - (window.innerHeight / 2);
+                    return (getStableHeight() - 30 - (kvTitle.offsetHeight * scale) / 2) - (getStableHeight() / 2);
                 },
                 scale: () => window.innerWidth > 1440 ? 0.5 : (window.innerWidth < 768 ? 0.25 : 0.35),
                 ease: "power1.inOut",
@@ -1586,12 +1592,25 @@
         }
 
         // Resize
+        // 只在「寬度」改變時才完整重建（避免 iOS URL bar 收縮觸發 height resize 造成卡頓）
         let resizeTimer = null;
+        let lastWidth = window.innerWidth;
+
         window.addEventListener('resize', () => {
+            const currentWidth = window.innerWidth;
+            const widthChanged = currentWidth !== lastWidth;
+            lastWidth = currentWidth;
+
             clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(() => {
-                init();
-            }, 200);
+
+            if (widthChanged) {
+                // 真正的寬度變化（裝置旋轉、PC 拖拉視窗）→ 完整重建
+                resizeTimer = setTimeout(() => {
+                    init();
+                }, 200);
+            }
+            // 僅高度變化（iOS URL bar 收縮）→ 完全略過，不重建也不 refresh
+            // iOS URL bar 的高度變化不影響橫向排版及絕大多數的 ScrollTrigger 觸發點
         });
 
     </script>
