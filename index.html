@@ -462,6 +462,7 @@
                 <img src="./assets/img/banner/title.svg" alt="title" class=" h-auto">
             </div>
             <div class="kv-content ">所有講究，只為純粋</div>
+            <div id="kv-black-cover" style="position:absolute;inset:0;background:#000;opacity:0;z-index:10;pointer-events:none;"></div>
         </section>
     </div>
 
@@ -1409,6 +1410,7 @@
             gsap.set(".kv-title",    { clearProps: "x,y,scale" });
             gsap.set(".kv-title",    { scale: window.innerWidth > 1440 ? 1 : (window.innerWidth < 768 ? 0.5 : 0.7)});
             gsap.set(".kv-overlay",  { clearProps: "opacity" });
+            gsap.set("#kv-black-cover", { opacity: 0 });
             // Header
             gsap.set("#web-logo",  { clearProps: "opacity,x" });
             gsap.set("#web-menu",  { clearProps: "opacity,x,gap" });
@@ -1484,6 +1486,18 @@
 
             // 2. 重建 KV Timeline
             const kvTl = buildKvTimeline();
+
+            // intro-section 到達頂部時，kv-black-cover 瞬間蓋黑，
+            // 防止 iOS overscroll bounce 在頁面底部把 KV 露出來
+            gsap.to("#kv-black-cover", {
+                opacity: 1,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#intro-section",
+                    start: "top top",
+                    toggleActions: "play none none reverse"
+                }
+            });
 
             // 3. 重新建立 matchMedia（須先建立，讓 USP/KV 等 pin 動畫產生的 spacer 高度
             //    先落地，後面的 fade-in ScrollTrigger 才能量到正確的捲動觸發位置）
