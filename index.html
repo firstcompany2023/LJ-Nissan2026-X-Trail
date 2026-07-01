@@ -46,6 +46,11 @@
             overflow-y: auto !important;
         }
 
+        #lottie-container{
+            width: min(350px, 80vw);
+            aspect-ratio: 350 / 318.27
+        }
+
         #web-header {
             display: flex;
         }
@@ -220,6 +225,12 @@
 
         /* 橫屏裝置 (平板 768px~1439px 橫屏) */
         @media (min-width: 768px) and (max-width: 1439px) and (orientation: landscape) and (min-height: 500px) {
+
+            #lottie-container{
+                width: min(245px, 60vw);
+                aspect-ratio: 245 / 224
+            }
+
             #usp-section-mob .usp-mob-layer-title{
                 position: relative;
                 top: -40px;
@@ -253,6 +264,12 @@
         }
         /* 直屏裝置 (平板 768px~1439px 直屏) */
         @media (min-width: 768px) and (max-width: 1439px) and (orientation: portrait) {
+
+            #lottie-container{
+                width: min(245px, 60vw);
+                aspect-ratio: 245 / 224
+            }
+
             #intro-section #intro-content{
                 padding-left: 100px;
             }
@@ -291,6 +308,12 @@
 
         /* 手機橫屏裝置 */
         @media (max-width: 960px) and (orientation: landscape) and (max-height: 500px){
+
+            #lottie-container{
+                width: min(245px, 60vw);
+                aspect-ratio: 245 / 224
+            }
+
             #web-header {
                 display: none !important;
             }
@@ -336,6 +359,12 @@
         }
         /* 手機直屏裝置 */
         @media (max-width: 767px) {
+
+            #lottie-container{
+                width: min(175px, 60vw);
+                aspect-ratio: 175 / 160
+            }
+
             #kv-section .kv-title {
                 scale: 0.5;
             }
@@ -371,9 +400,23 @@
         }
     </style>
 
+    <!-- Intro Animation Overlay -->
+    <div id="intro-overlay" style="
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: all;
+    ">
+        <div id="lottie-container"></div>
+    </div>
+
     <header class="fixed top-0 left-0 w-full z-[100] bg-transparent transition-all duration-300">
         <div id="web-header" class="relative mx-auto flex flex-row items-center justify-between px-12 py-6 gap-x-0">
-            <div id="web-logo" class="hidden md:block">                
+            <div id="web-logo" class="hidden md:block">
                 <a href="#" class="w-[72px] block transition-transform duration-300 hover:scale-105">
                     <img src="./assets/img/icon/logo.svg" alt="NISSAN LOGO" class="w-[72px] h-auto object-contain brightness-0 invert">
                 </a>
@@ -391,8 +434,11 @@
                 <img src="./assets/img/icon/menu-burger.svg" class="w-4 h-4 brightness-0 invert" alt="menu icon">
             </button>
             <div id="mobile-logo" class="block transition-transform duration-300 hover:scale-105">
-                <span class="text-nissan text-[22px] font-light text-white tracking-[4px] leading-none uppercase">NISSAN</span>
+                <a href="#" class="w-[120px] block transition-transform duration-300 hover:scale-105">
+                    <img src="./assets/img/icon/logo_text.svg" alt="NISSAN LOGO" class="w-[120px] h-auto object-contain brightness-0 invert">
+                </a>
             </div>
+
 
             <div id="mobile-dropdown-menu" class="hidden absolute top-full left-6 bg-[#0A0A0A]/85 z-[150] px-6 py-8">
                 <nav class="flex flex-col gap-y-6">
@@ -421,7 +467,7 @@
 
     <section id="intro-section" class="relative z-10 w-full bg-black flex items-center justify-center h-screen md:h-auto">
         <div id="intro-content" class="flex flex-row items-center justify-center gap-16 max-w-6xl w-full py-32 px-8">
-            <img src="./assets/img/banner/title.svg" alt="title" class="h-auto w-[225px] mb-auto fade-in">
+            <img src="./assets/img/banner/title.svg" alt="title" class="h-auto w-[225px] my-auto fade-in">
             <div class="text-xl text-white">
                 <div class="fade-in mb-16">
                     <p class="tracking-[16px] font-extralight text-2xl leading-[2]">粋｜</p>
@@ -535,8 +581,8 @@
                     <div class="usp-content-title text-8xl font-normal">
                         粋の信賴
                     </div>
-                    <div class="text-base max-w-[460px] my-24 mb-32 font-thin">
-                        真正的安全，不只在危險發生之後，更在風險靠近之前。懷抱零傷亡的願景，NISSAN將安全的思考放在危險發生之前。
+                    <div class="text-base max-w-[460px] my-24 mb-32 font-thin ">
+                        真正的安全，不只在危險發生之後，更在風險靠近之前。<br>懷抱零傷亡的願景，NISSAN將安全的思考放在危險發生之前。
                     </div>
                     <img src="./assets/img/icon/line_lg.svg" alt="line" class="text-white mt-4">
                 </div>
@@ -751,7 +797,7 @@
                 </div>
             </div>
         </div>
-        <div id="usp-section-mob-2" class="usp-text-layer usp-layer-1 w-full flex flex-col gap-12 bg-black text-white mb-24">
+        <div id="usp-section-mob-2" class="usp-text-layer usp-layer-2 w-full flex flex-col gap-12 bg-black text-white mb-24">
             <div class="w-full h-full flex items-center justify-center">
                 <img src="./assets/img/usp/USP_bg02.webp" alt="" class="w-full h-full object-cover" style="mask-image: linear-gradient(to bottom, black 80%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);">
             </div>
@@ -837,7 +883,7 @@
                 </div>
             </div>
         </div>
-        <div id="usp-section-mob-3" class="usp-text-layer usp-layer-1 w-full flex flex-col gap-12 bg-black text-white mb-24">
+        <div id="usp-section-mob-3" class="usp-text-layer usp-layer-3 w-full flex flex-col gap-12 bg-black text-white mb-24">
             <div class="w-full h-full flex items-center justify-center">
                 <img src="./assets/img/usp/USP_bg03.webp" alt="" class="w-full h-full object-cover" style="mask-image: linear-gradient(to bottom, black 80%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);">
             </div>
@@ -1003,8 +1049,41 @@
     <script src="./assets/js/gsap.min.js"></script>
     <script src="./assets/js/ScrollTrigger.min.js"></script>
     <script src="./assets/js/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
 
     <script>
+        // =====================================================
+        //  Intro Lottie 動畫 - 頁面首次進入全版播放
+        // =====================================================
+        (function () {
+            const overlay = document.getElementById('intro-overlay');
+            const container = document.getElementById('lottie-container');
+
+            // 鎖定滾動
+            document.body.style.overflow = 'hidden';
+
+            const anim = lottie.loadAnimation({
+                container: container,
+                renderer: 'svg',
+                loop: false,
+                autoplay: true,
+                path: './assets/an_title.json'
+            });
+
+            anim.addEventListener('complete', () => {
+                // 動畫播完：overlay 淡出，解鎖滾動
+                gsap.to(overlay, {
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: 'power2.inOut',
+                    onComplete: () => {
+                        overlay.style.display = 'none';
+                        document.body.style.overflow = '';
+                    }
+                });
+            });
+        })();
+
         // =====================================================
         //  區塊 1：開關邏輯
         // =====================================================
@@ -1462,7 +1541,7 @@
                     entries.forEach(entry => {
                         if (!entry.isIntersecting) return;
                         gsap.fromTo(entry.target,
-                            { opacity: 0, y: 40 },
+                            { opacity: 0, y: 0 },
                             { opacity: 1, y: 0, duration: 1.4, ease: "power2.out" }
                         );
                         fadeObserver.unobserve(entry.target);
