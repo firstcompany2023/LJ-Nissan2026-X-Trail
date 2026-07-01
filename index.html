@@ -180,6 +180,7 @@
         }
 
         #side-btn {
+            bottom: -3px;
             opacity: 0;
         }
 
@@ -1029,7 +1030,7 @@
         </div>
     </section>
 
-    <div id="side-btn" class="fixed right-0 top-2/3 -translate-y-1/2 z-[120] flex flex-col gap-y-[2px] bg-zinc-800 p-[1px] group w-12 hover:w-[160px] transition-all duration-300 ease-in-out overflow-hidden">
+    <div id="side-btn" class="fixed right-0 -translate-y-1/2 z-[120] flex flex-col gap-y-[2px] bg-zinc-800 p-[1px] group w-12 hover:w-[160px] transition-all duration-300 ease-in-out overflow-hidden">
         <a href="#price-section" class="flex items-center justify-between w-[158px] h-12 bg-[#1E1E1E] px-4 text-white transition-colors duration-300 hover:text-[#BEA894]">
             <div class="flex items-center gap-x-3 whitespace-nowrap font-light text-xs tracking-[2px]">
                 <img src="./assets/img/icon/pen-clip.svg" class="w-4 h-4 brightness-0 invert me-2" alt="pdf icon">
@@ -1119,14 +1120,6 @@
             // USP 手機版的 toggle 按鈕
             const uspToggles = document.querySelectorAll('.usp-mob-toggle');
 
-            uspToggles.forEach(toggle => {
-                const details = toggle.previousElementSibling;
-                if (details && details.classList.contains('usp-mob-details')) {
-                    details.dataset.isOpen = 'false';
-                    gsap.set(details, { maxHeight: 0 });
-                }
-            });
-
             function closeDetails(details) {
                 const toggle = details.nextElementSibling;
                 const icon = toggle ? toggle.querySelector('img') : null;
@@ -1163,33 +1156,12 @@
                     }
 
                     const targetContent = details.closest('.usp-mob-content');
-                    const othersOpen = [];
-                    uspToggles.forEach(otherToggle => {
-                        if (otherToggle === toggle) return;
-                        const otherDetails = otherToggle.previousElementSibling;
-                        if (otherDetails && otherDetails.classList.contains('usp-mob-details') && otherDetails.dataset.isOpen === 'true') {
-                            othersOpen.push(otherDetails);
+                    requestAnimationFrame(() => {
+                        if (targetContent) {
+                            lenis.scrollTo(targetContent, { offset: -140, duration: 0.6, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+                            openDetails(details);
                         }
                     });
-
-                    if (othersOpen.length === 0) {
-                        requestAnimationFrame(() => {
-                            if (targetContent) {
-                                lenis.scrollTo(targetContent, { offset: -140, duration: 0.6, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
-                                openDetails(details);
-                            }
-                        });
-                    } else {
-                        othersOpen.forEach(other => closeDetails(other));
-                        setTimeout(() => {
-                            requestAnimationFrame(() => {
-                                if (targetContent) {
-                                    lenis.scrollTo(targetContent, { offset: -140, duration: 0.6, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
-                                }
-                                openDetails(details);
-                            });
-                        }, 200);
-                    }
                 });
             });
         });
