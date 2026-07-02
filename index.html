@@ -48,7 +48,7 @@
 
         #lottie-container{
             width: min(350px, 80vw);
-            aspect-ratio: 350 / 318.27
+            aspect-ratio: 350 / 280
         }
 
         #web-header {
@@ -116,6 +116,11 @@
             position: absolute;
             z-index: 3;
             text-align: center;
+        }
+
+        #kv-section .kv-title img{
+            padding: 6.6%;
+            padding-bottom: 15%;
         }
 
         #usp-section-web .usp-bg-img .usp-title  {
@@ -209,6 +214,7 @@
             #kv-section .kv-title {
                 scale: 0.5;
             }
+
             #kv-section .kv-content {   
                 letter-spacing: 12px;
                 width: 100%;
@@ -226,6 +232,13 @@
 
         /* 橫屏裝置 (平板 768px~1439px 橫屏) */
         @media (min-width: 768px) and (max-width: 1439px) and (orientation: landscape) and (min-height: 500px) {
+
+
+            #kv-section .kv-title img{
+                padding: 0%;
+                padding-bottom: 12%;
+            }
+
 
             #lottie-container{
                 width: min(245px, 60vw);
@@ -268,7 +281,7 @@
 
             #lottie-container{
                 width: min(245px, 60vw);
-                aspect-ratio: 245 / 224
+                aspect-ratio: 245 / 196
             }
 
             #intro-section #intro-content{
@@ -312,7 +325,7 @@
 
             #lottie-container{
                 width: min(245px, 60vw);
-                aspect-ratio: 245 / 224
+                aspect-ratio: 245 / 196
             }
 
             #web-header {
@@ -363,7 +376,7 @@
 
             #lottie-container{
                 width: min(175px, 60vw);
-                aspect-ratio: 175 / 160
+                aspect-ratio: 175 / 140
             }
 
             #kv-section .kv-title {
@@ -460,9 +473,9 @@
             <img class="kv-bg-image" src="./assets/img/banner/banner_d.webp" alt="KV Banner Image">
             <div class="kv-overlay"></div>
             <div class="kv-title">
-                <img src="./assets/img/banner/title.svg" alt="title" class=" h-auto">
+                <img src="./assets/img/banner/title.svg" alt="title" class="h-auto">
             </div>
-            <div class="kv-content ">所有講究，只為純粋</div>
+            <div class="kv-content ">所有講究 只為純粋</div>
             <div id="kv-black-cover" style="position:absolute;inset:0;background:#000;opacity:0;z-index:10;pointer-events:none;"></div>
         </section>
     </div>
@@ -473,7 +486,7 @@
             <div class="text-xl text-white">
                 <div class="fade-in mb-16">
                     <p class="tracking-[16px] font-extralight text-2xl leading-[2]">粋｜</p>
-                    <p class="tracking-[16px] font-extralight">所有講究，只為純粋</p>
+                    <p class="tracking-[16px] font-extralight">所有講究 只為純粋</p>
                 </div>
                 <div class="text-sm leading-relaxed tracking-[5px] font-thin fade-in">
                     真正的工藝，從不會急於證明自己。<br>
@@ -526,8 +539,6 @@
                 <div class="flex flex-col justify-center items-start">
                     <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
                         <span class="text-[32px]"> 智動 </span>
-                        <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
-                        <span> 引擎 Engine </span>
                     </div>
                     <div class="flex flex-row gap-16">
                         <video src="./assets/video/test01.mp4" autoplay muted loop playsinline class="w-[350px]"></video>
@@ -544,8 +555,6 @@
                 <div class="flex flex-col justify-center items-start">
                     <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
                         <span class="text-[32px]"> 智行 </span>
-                        <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
-                        <span> 底盤 Chassis </span>
                     </div>
                     <div class="flex flex-row gap-16">
                         <video src="./assets/video/test02.mp4" autoplay muted loop playsinline class="w-[350px]"></video>
@@ -562,8 +571,6 @@
                 <div class="flex flex-col justify-center items-start">
                     <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
                         <span class="text-[32px]"> 智慧 </span>
-                        <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
-                        <span> 黃金三屏幕 </span>
                     </div>
                     <div class="flex flex-row gap-16">
                         <video src="./assets/video/test03.mp4" autoplay muted loop playsinline class="w-[350px]"></video>
@@ -591,8 +598,6 @@
                 <div class="flex flex-col justify-center items-start">
                     <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
                         <span class="text-[32px]"> 信用 </span>
-                        <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
-                        <span> 主安 ProPILOT </span>
                     </div>
                     <div class="flex flex-row gap-16">
                         <video src="./assets/video/test01.mp4" autoplay muted loop playsinline class="w-[350px]"></video>
@@ -609,8 +614,6 @@
                 <div class="flex flex-col justify-center items-start">
                     <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
                         <span class="text-[32px]"> 信賴 </span>
-                        <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
-                        <span> 被安 Passive </span>
                     </div>
                     <div class="flex flex-row gap-16">
                         <video src="./assets/video/test02.mp4" autoplay muted loop playsinline class="w-[350px]"></video>
@@ -627,8 +630,6 @@
                 <div class="flex flex-col justify-center items-start">
                     <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
                         <span class="text-[32px]"> 信心 </span>
-                        <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
-                        <span> 製程 Engineering </span>
                     </div>
                     <div class="flex flex-row gap-16">
                         <video src="./assets/video/test03.mp4" autoplay muted loop playsinline class="w-[350px]"></video>
@@ -657,8 +658,6 @@
                 <div class="flex flex-col justify-center items-start">
                     <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
                         <span class="text-[32px]"> 心和 </span>
-                        <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
-                        <span> 平靜 Peaceful </span>
                     </div>
                     <div class="flex flex-row gap-16">
                         <video src="./assets/video/test01.mp4" autoplay muted loop playsinline class="w-[350px]"></video>
@@ -675,8 +674,6 @@
                 <div class="flex flex-col justify-center items-start">
                     <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
                         <span class="text-[32px]"> 心緻 </span>
-                        <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
-                        <span> 精緻 Prestige </span>
                     </div>
                     <div class="flex flex-row gap-16">
                         <video src="./assets/video/test02.mp4" autoplay muted loop playsinline class="w-[350px]"></video>
@@ -693,8 +690,6 @@
                 <div class="flex flex-col justify-center items-start">
                     <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
                         <span class="text-[32px]"> 心靜 </span>
-                        <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
-                        <span> 靜謐 Tranquility </span>
                     </div>
                     <div class="flex flex-row gap-16">
                         <video src="./assets/video/test03.mp4" autoplay muted loop playsinline class="w-[350px]"></video>
@@ -729,8 +724,6 @@
             <div class="usp-mob-layer-subtitle flex flex-col justify-center items-start px-8 max-w-sm mx-auto">
                 <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
                     <span class="text-[32px]"> 智動 </span>
-                    <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
-                    <span> 引擎 Engine </span>
                 </div>
                 <div class="usp-mob-content flex flex-col">
                     <video src="./assets/video/test01.mp4" autoplay muted loop playsinline class="w-full h-auto object-cover max-w-[350px]"></video>
@@ -753,8 +746,6 @@
             <div class="usp-mob-layer-subtitle flex flex-col justify-center items-start px-8 max-w-sm mx-auto">
                 <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
                     <span class="text-[32px]"> 智行 </span>
-                    <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
-                    <span> 底盤 Chassis </span>
                 </div>
                 <div class="usp-mob-content flex flex-col">
                     <video src="./assets/video/test02.mp4" autoplay muted loop playsinline class="w-full h-auto object-cover max-w-[350px]"></video>
@@ -777,8 +768,6 @@
             <div class="usp-mob-layer-subtitle flex flex-col justify-center items-start px-8 max-w-sm mx-auto">
                 <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
                     <span class="text-[32px]"> 智慧 </span>
-                    <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
-                    <span> 黃金三屏幕 </span>
                 </div>
                 <div class="usp-mob-content flex flex-col">
                     <video src="./assets/video/test03.mp4" autoplay muted loop playsinline class="w-full h-auto object-cover max-w-[350px]"></video>
@@ -815,8 +804,6 @@
             <div class="usp-mob-layer-subtitle flex flex-col justify-center items-start px-8 max-w-sm mx-auto">
                 <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
                     <span class="text-[32px]"> 信用 </span>
-                    <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
-                    <span> 主安 ProPILOT </span>
                 </div>
                 <div class="usp-mob-content flex flex-col">
                     <video src="./assets/video/test01.mp4" autoplay muted loop playsinline class="w-full h-auto object-cover max-w-[350px]"></video>
@@ -839,8 +826,6 @@
             <div class="usp-mob-layer-subtitle flex flex-col justify-center items-start px-8 max-w-sm mx-auto">
                 <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
                     <span class="text-[32px]"> 信賴 </span>
-                    <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
-                    <span> 被安 Passive </span>
                 </div>
                 <div class="usp-mob-content flex flex-col">
                     <video src="./assets/video/test02.mp4" autoplay muted loop playsinline class="w-full h-auto object-cover max-w-[350px]"></video>
@@ -863,8 +848,6 @@
             <div class="usp-mob-layer-subtitle flex flex-col justify-center items-start px-8 max-w-sm mx-auto">
                 <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
                     <span class="text-[32px]"> 信心 </span>
-                    <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
-                    <span> 製程 Engineering </span>
                 </div>
                 <div class="usp-mob-content flex flex-col">
                     <video src="./assets/video/test03.mp4" autoplay muted loop playsinline class="w-full h-auto object-cover max-w-[350px]"></video>
@@ -902,8 +885,6 @@
             <div class="usp-mob-layer-subtitle flex flex-col justify-center items-start px-8 max-w-sm mx-auto">
                 <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
                     <span class="text-[32px]"> 心和 </span>
-                    <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
-                    <span> 平靜 Peaceful </span>
                 </div>
                 <div class="usp-mob-content flex flex-col">
                     <video src="./assets/video/test01.mp4" autoplay muted loop playsinline class="w-full h-auto object-cover max-w-[350px]"></video>
@@ -926,8 +907,6 @@
             <div class="usp-mob-layer-subtitle flex flex-col justify-center items-start px-8 max-w-sm mx-auto">
                 <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
                     <span class="text-[32px]"> 心緻 </span>
-                    <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
-                    <span> 精緻 Prestige </span>
                 </div>
                 <div class="usp-mob-content flex flex-col">
                     <video src="./assets/video/test02.mp4" autoplay muted loop playsinline class="w-full h-auto object-cover max-w-[350px]"></video>
@@ -950,8 +929,6 @@
             <div class="usp-mob-layer-subtitle flex flex-col justify-center items-start px-8 max-w-sm mx-auto">
                 <div class="flex flex-row items-center mb-4 font-light" style="color: #BEA894;">
                     <span class="text-[32px]"> 心靜 </span>
-                    <div class="border-b-2 w-[30px] mx-2" style="border-color: #3A3A3A;"></div>
-                    <span> 靜謐 Tranquility </span>
                 </div>
                 <div class="usp-mob-content flex flex-col">
                     <video src="./assets/video/test03.mp4" autoplay muted loop playsinline class="w-full h-auto object-cover max-w-[350px]"></video>
