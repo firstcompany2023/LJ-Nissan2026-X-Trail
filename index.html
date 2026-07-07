@@ -129,6 +129,60 @@
             text-align: center;
         }
 
+
+        .tvc-info{
+            width: 500px;
+            max-width: 500px;
+        }
+        .tvc-info .tvc-xtrail-img {
+            position: relative;
+            border: 2px solid #8E8E8E;
+            box-shadow: 0px 0px 25px 0px #0000001A;
+            width: 100%;
+            padding-bottom: 50%;
+            overflow: hidden;
+            background-image: url(./assets/img/tvc/tvc.jpg);
+            background-size: cover;
+            background-position: center;
+        }
+        .tvc-info .tvc-xtrail-img:hover {
+            box-shadow: 0px 0px 25px 0px #a7a7a7;
+        }
+
+        .tvc-info .tvc-xtrail-img img {
+            width: 100%;
+            height: auto;
+        }
+
+        .tvc-info .play-btn {
+            width: 35px;
+            height: 35px;
+            color: #717171;
+            cursor: pointer;
+            background: #BEA894;
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px #66666680;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-left: 4px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: absolute;
+            top: 30px;
+            right: 30px;
+        }
+        .tvc-info .play-btn:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 0 6px #66666690;
+        }
+        .tvc-info .play-btn img {
+            width: 33%;
+            height: auto;
+            filter: invert(13%) sepia(0%) saturate(1%) brightness(97%) contrast(87%);
+        }
+
+
         #usp-section-web .usp-bg-img .usp-title  {
             width: 300px;
             font-weight: 100;
@@ -198,6 +252,89 @@
             opacity: 0;
         }
 
+
+        /* ==========================================================================
+        Popup Modal
+        ========================================================================== */
+
+        .popup-overlay {
+            background-image: url(./assets/img/tvc/bg_video-section.png);
+            background-size: cover;
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.1);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        visibility 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .popup-overlay.show {
+            opacity: 1;
+            visibility: visible;
+            animation: popupFadeIn 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        .popup-overlay.hide {
+            opacity: 0;
+            visibility: hidden;
+            animation: popupFadeOut 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        .popup-content {
+            position: relative;
+            width: 90%;
+            max-width: 900px;
+            aspect-ratio: 16 / 9;
+            overflow: visible;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 65px;
+            height: 65px;
+            background: url('./assets/img/icon/popup_close_btn.svg');
+            background-size: cover;
+            background-position: center;
+            border: none;
+            cursor: pointer;
+            z-index: 10001;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .popup-close:hover {
+            filter: brightness(1.1);
+            transform: scale(1.05);
+        }
+
+        .popup-close svg {
+            display: none;
+        }
+
+        @keyframes popupFadeIn {
+            0%   { opacity: 0; transform: translate(0, 0) scale(0.8); }
+            100% { opacity: 1; transform: translate(0, 0) scale(1); }
+        }
+
+        @keyframes popupFadeOut {
+            0%   { opacity: 1; transform: translate(0, 0) scale(1); }
+            100% { opacity: 0; transform: translate(0, 0) scale(0.8); }
+        }
+
+
         /* 橫屏裝置 (電腦 >= 1440px) */
         @media (min-width: 1440px) {
 
@@ -234,9 +371,18 @@
             #intro-section #intro-content{
                 display: flex !important;
                 flex-direction: column !important;
-                align-items: start;
+                align-items: center;
                 justify-content: start;
+                max-width: 293px;
+                padding-left: 0;
+                padding-right: 0;
             }
+
+            .tvc-info{
+                width: 293px;
+                max-width: 293px;
+            }
+
         }
 
         /* 橫屏裝置 (平板 768px~1439px 橫屏) */
@@ -286,8 +432,17 @@
                 aspect-ratio: 245 / 196
             }
 
-            #intro-section #intro-content{
-                padding-left: 100px;
+            .tvc-info .play-btn {
+                top: 15px;
+                right: 15px;
+            }
+
+            #intro-section #intro-content .text-xl.text-white div:nth-child(1) p:nth-child(2){
+                letter-spacing: 10px!important;
+                
+            }
+            #intro-section #intro-content .text-xl.text-white div:nth-child(2){
+                letter-spacing: 2px !important;                
             }
 
             #usp-section-mob .usp-mob-layer-title{
@@ -359,6 +514,11 @@
                 height: auto;
             }
 
+            .tvc-info .play-btn {
+                top: 15px;
+                right: 15px;
+            }
+
             #price-section{
                 display: block;
                 height: auto;
@@ -378,6 +538,7 @@
             #usp-section-mob .usp-mob-layer-tip-table{
                 display: none;
             }
+
         }
         /* 手機直屏裝置 */
         @media (max-width: 767px) {
@@ -397,13 +558,12 @@
                 left: 50%;
                 text-align: center;
             }
-            #intro-section #intro-content{
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: start;
-                justify-content: start;
-                padding-left: 30px;
+
+            .tvc-info .play-btn {
+                top: 15px;
+                right: 15px;
             }
+
             #usp-section-mob .usp-mob-layer-title{
                 position: relative;
                 top: -20px;
@@ -435,6 +595,7 @@
                 display: none;
             }
         }
+
     </style>
 
     <div id="intro-overlay" style="
@@ -504,14 +665,20 @@
     </div>
 
     <section id="intro-section" class="relative z-10 w-full bg-black flex items-center justify-center h-dvh md:h-auto">
-        <div id="intro-content" class="US_N_202607_xtrail_launch_ikitsuki_video flex flex-row items-center justify-center gap-16 max-w-6xl w-full py-32 px-8">
-            <img src="./assets/img/banner/title.svg" alt="title" class="h-auto w-[225px] my-auto fade-in">
+        <div id="intro-content" class="flex flex-row  items-center justify-center gap-16 max-w-7xl w-full py-32 px-4">
+            <div class="tvc-info">
+                <div class="tvc-xtrail-img fade-in">
+                    <a class="play-btn US_N_202607_xtrail_launch_ikitsuki_video" data-video_url="https://www.youtube.com/embed/wxg7MyH_Myk?autoplay=1&mute=1">
+                        <img src="./assets/img/tvc/vector.svg">
+                    </a>
+                </div>
+            </div>
             <div class="text-xl text-white">
                 <div class="fade-in mb-16">
                     <p class="tracking-[16px] font-extralight text-2xl leading-[2]">粋｜</p>
-                    <p class="tracking-[16px] font-extralight">所有講究 只為純粋</p>
+                    <p class="tracking-[10px] md:tracking-[16px] font-extralight">所有講究 只為純粋</p>
                 </div>
-                <div class="text-sm leading-relaxed tracking-[5px] font-thin fade-in">
+                <div class="text-sm leading-relaxed tracking-[2px] md:tracking-[5px]  font-thin fade-in">
                     真正的工藝，從不會急於證明自己。<br>
                     時間的淬鍊，終將替它說話。<br><br>
                     凝聚 NISSAN 百年造車底蘊及對未來移動的深刻洞察，<br>
@@ -1059,6 +1226,16 @@
 
     </div>
 
+
+    <!-- Popup Modal -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-content">
+            <button class="popup-close" id="popupClose"></button>
+            <iframe id="popupVideo" width="100%" height="100%" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+    </div>
+
+
     <!-- content here end -->
 
     <script src="./assets/js/gsap.min.js"></script>
@@ -1118,6 +1295,35 @@
 
             // 確保所有影片靜音（部分瀏覽器須以 JS 設定才生效）
             document.querySelectorAll('video').forEach(v => { v.muted = true; });
+
+            // TVC 播放按鈕
+            const popupOverlay = document.getElementById('popupOverlay');
+            const popupClose = document.getElementById('popupClose');
+            const popupVideo = document.getElementById('popupVideo');
+            const tvcPlayButtons = document.querySelectorAll('.tvc-info .play-btn');
+
+            tvcPlayButtons.forEach((btn) => {
+                btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const videoUrl = btn.dataset.video_url || 'https://www.youtube.com/embed/wxg7MyH_Myk?autoplay=1&mute=1';
+                popupVideo.src = videoUrl;
+                popupOverlay.classList.add('show');
+                popupOverlay.classList.remove('hide');
+                });
+            });
+            const closePopup = () => {
+                popupOverlay.classList.remove('show');
+                popupOverlay.classList.add('hide');
+                setTimeout(() => { popupVideo.src = ''; }, 600);
+            };
+
+            popupClose.addEventListener('click', closePopup);
+            popupOverlay.addEventListener('click', (e) => {
+                if (e.target === popupOverlay) closePopup();
+            });
+
+
 
             // 手機選單開關邏輯
             const toggleBtn    = document.getElementById('mobile-menu');
